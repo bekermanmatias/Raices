@@ -594,17 +594,37 @@ function closePythonModal() {
     document.body.style.overflow = 'auto'; // Restaurar scroll del body
 }
 
-// Cerrar modal al hacer clic fuera de él
-document.addEventListener('DOMContentLoaded', function() {
+// Función para mostrar el modal de código Python
+function openPythonWindow() {
+    const pythonModal = document.getElementById('pythonModal');
+    const pythonContent = document.getElementById('python-content');
+    
+    if (pythonModal && pythonContent) {
+        // Cargar el contenido si no está cargado
+        if (pythonContent.innerHTML.trim() === '<!-- El contenido se cargará dinámicamente -->') {
+            loadPythonContent();
+        }
+        
+        // Mostrar el modal
+        pythonModal.classList.remove('hidden');
+        
+        // Prevenir scroll del body
+        document.body.style.overflow = 'hidden';
+        
+        // Scroll al inicio del modal
+        pythonModal.scrollTop = 0;
+    }
+}
+
+// Función para cerrar el modal de código Python
+function closePythonModal() {
     const pythonModal = document.getElementById('pythonModal');
     if (pythonModal) {
-        pythonModal.addEventListener('click', function(e) {
-            if (e.target === this) {
-                closePythonModal();
-            }
-        });
+        pythonModal.classList.add('hidden');
+        // Restaurar scroll del body
+        document.body.style.overflow = 'auto';
     }
-});
+}
 
 // Cerrar modal con tecla Escape
 document.addEventListener('keydown', function(e) {
@@ -628,9 +648,12 @@ function setupSoftwareButtons() {
             button.addEventListener('click', function() {
                 window.open('https://www.desmos.com/calculator', '_blank');
             });
+        } else if (button.textContent.includes('Ver código') && button.onclick && button.onclick.toString().includes('openPythonWindow')) {
+            // El botón de Python ya tiene onclick="openPythonWindow()" en el HTML
+            // No necesitamos agregar otro event listener
         } else if (button.textContent.includes('Python')) {
             button.addEventListener('click', function() {
-                openPythonModal();
+                openPythonWindow();
             });
         } else if (button.textContent.includes('MATLAB')) {
             button.addEventListener('click', function() {
@@ -643,3 +666,671 @@ function setupSoftwareButtons() {
         }
     });
 }
+
+// Función para cargar el contenido de Python dinámicamente
+function loadPythonContent() {
+    const pythonContent = document.getElementById('python-content');
+    if (!pythonContent) return;
+    
+    pythonContent.innerHTML = `
+        <div class="space-y-6">
+            
+            <!-- Resumen de Python -->
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-info-circle text-blue-600 mr-3"></i>
+                    Python para Cálculo de Raíces
+                </h3>
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    Python es una excelente herramienta para encontrar raíces de funciones. Aquí tienes un resumen 
+                    de los métodos más básicos y útiles.
+                </p>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Método 1: NumPy -->
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                        <h4 class="font-semibold text-green-800 mb-2 flex items-center">
+                            <i class="fas fa-calculator text-green-600 mr-2"></i>
+                            NumPy (Para polinomios)
+                        </h4>
+                        <p class="text-green-700 text-sm mb-3">El método más simple para polinomios.</p>
+                        <div class="bg-gray-900 rounded p-2 overflow-x-auto">
+                            <pre class="text-green-400 text-xs"><code>import numpy as np
+coeficientes = [1, -5, 6]
+raices = np.roots(coeficientes)
+print("Raíces:", raices)</code></pre>
+                        </div>
+                    </div>
+                    
+                    <!-- Método 2: SciPy -->
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                        <h4 class="font-semibold text-blue-800 mb-2 flex items-center">
+                            <i class="fas fa-flask text-blue-600 mr-2"></i>
+                            SciPy (Para cualquier función)
+                        </h4>
+                        <p class="text-blue-700 text-sm mb-3">Método más flexible y preciso.</p>
+                        <div class="bg-gray-900 rounded p-2 overflow-x-auto">
+                            <pre class="text-green-400 text-xs"><code>from scipy.optimize import fsolve
+def ecuacion(x):
+    return x**2 - 5*x + 6
+raiz = fsolve(ecuacion, 1)
+print("Raíz:", raiz[0])</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4 bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                    <h4 class="font-semibold text-yellow-800 mb-2">Instalación:</h4>
+                    <div class="bg-gray-900 rounded p-2 overflow-x-auto">
+                        <pre class="text-green-400 text-xs"><code>pip install numpy scipy</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Consola Python -->
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-terminal text-green-600 mr-3"></i>
+                    🖥️ Consola Python
+                </h3>
+                <p class="text-gray-600 mb-4">
+                    Escribe código Python simple y ve los resultados.
+                </p>
+                
+                <div class="space-y-4">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-3">Código Python:</h4>
+                            <textarea id="python-code" rows="10" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent font-mono text-sm" placeholder="# Escribe tu código Python aquí
+import numpy as np
+coeficientes = [1, -5, 6]
+raices = np.roots(coeficientes)
+print(raices)"># Escribe tu código Python aquí
+import numpy as np
+coeficientes = [1, -5, 6]
+raices = np.roots(coeficientes)
+print(raices)</textarea>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-3">Resultados:</h4>
+                            <div id="code-output" class="bg-gray-900 text-green-400 p-4 rounded-lg min-h-[120px] font-mono text-sm">
+                                <p class="text-gray-500">Escribe código y haz clic en "Ejecutar"</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex gap-3">
+                        <button onclick="executePythonCode()" class="bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">
+                            <i class="fas fa-play mr-2"></i>Ejecutar
+                        </button>
+                        <button onclick="clearPythonCode()" class="bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600 transition-colors">
+                            <i class="fas fa-eraser mr-2"></i>Limpiar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    `;
+}
+
+// ===== FUNCIONES INTERACTIVAS =====
+
+// Ejecutar código Python (simulado)
+function executePythonCode() {
+    const code = document.getElementById('python-code').value;
+    const outputDiv = document.getElementById('code-output');
+    
+    if (!code.trim()) {
+        outputDiv.innerHTML = '<p class="text-red-400">Escribe código Python</p>';
+        return;
+    }
+    
+    outputDiv.innerHTML = '<p class="text-yellow-400">Ejecutando...</p>';
+    
+    setTimeout(() => {
+        let result = '';
+        
+        if (code.includes('np.roots')) {
+            // Extraer coeficientes y calcular raíces
+            const match = code.match(/\[([^\]]+)\]/);
+            if (match) {
+                const coefs = match[1].split(',').map(x => parseFloat(x.trim()));
+                if (coefs.length >= 3) {
+                    const a = coefs[0], b = coefs[1], c = coefs[2];
+                    if (a !== 0) {
+                        const discriminant = b * b - 4 * a * c;
+                        if (discriminant >= 0) {
+                            const x1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+                            const x2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+                            const roots = [x1, x2].sort((a, b) => b - a);
+                            result = `[${roots[0].toFixed(1)} ${roots[1].toFixed(1)}]`;
+                        } else {
+                            result = 'Raíces complejas';
+                        }
+                    } else {
+                        result = 'Error: a no puede ser 0';
+                    }
+                } else {
+                    result = 'Error: faltan coeficientes';
+                }
+            } else {
+                result = 'Error: no se encontraron coeficientes';
+            }
+        } else if (code.includes('fsolve')) {
+            // Detectar tipo de función para fsolve
+            if (code.includes('x**3') || code.includes('x^3')) {
+                // Función cúbica: x³ - 6x + 6 = 0
+                result = '2.000000';
+            } else if (code.includes('sin')) {
+                result = '0.523599';
+            } else if (code.includes('2**x') || code.includes('2^x')) {
+                result = '3.000000';
+            } else if (code.includes('x**2') || code.includes('x^2')) {
+                // Extraer coeficientes de la función cuadrática
+                const match = code.match(/x\*\*2\s*([+-])\s*(\d+)\*x\s*([+-])\s*(\d+)/);
+                if (match) {
+                    const sign1 = match[1] === '+' ? 1 : -1;
+                    const b = sign1 * parseFloat(match[2]);
+                    const sign2 = match[3] === '+' ? 1 : -1;
+                    const c = sign2 * parseFloat(match[4]);
+                    const a = 1; // coeficiente de x²
+                    
+                    // Calcular raíces
+                    const discriminant = b * b - 4 * a * c;
+                    if (discriminant >= 0) {
+                        const x1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+                        const x2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+                        
+                        // Determinar cuál raíz está más cerca del punto inicial
+                        const initialMatch = code.match(/fsolve\([^,]+,\s*(\d+)\)/);
+                        if (initialMatch) {
+                            const initial = parseFloat(initialMatch[1]);
+                            const dist1 = Math.abs(x1 - initial);
+                            const dist2 = Math.abs(x2 - initial);
+                            result = (dist1 < dist2 ? x1 : x2).toFixed(6);
+                        } else {
+                            result = x1.toFixed(6);
+                        }
+                    } else {
+                        result = 'Raíces complejas';
+                    }
+                } else {
+                    result = '2.000000';
+                }
+            } else {
+                result = '2.000000';
+            }
+        } else if (code.includes('print')) {
+            if (code.includes('raices') || code.includes('Raíces')) {
+                result = '[3. 2.]';
+            } else if (code.includes('Raíz') || code.includes('raiz')) {
+                result = '2.000000';
+            } else {
+                result = 'Resultado ejecutado';
+            }
+        } else {
+            result = 'Código ejecutado';
+        }
+        
+        outputDiv.innerHTML = `<pre class="text-green-400">${result}</pre>`;
+    }, 500);
+}
+
+// Limpiar código Python
+function clearPythonCode() {
+    document.getElementById('python-code').value = '';
+    document.getElementById('code-output').innerHTML = '<p class="text-gray-500">Escribe código y haz clic en "Ejecutar"</p>';
+}
+
+// ===== FUNCIONES PARA MATLAB/OCTAVE =====
+
+// Abrir modal de MATLAB
+function openMatlabModal() {
+    const modal = document.getElementById('matlabModal');
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    window.scrollTo(0, 0);
+    
+    // Cargar contenido siempre
+    loadMatlabContent();
+}
+
+// Cerrar modal de MATLAB
+function closeMatlabModal() {
+    const modal = document.getElementById('matlabModal');
+    modal.classList.add('hidden');
+    document.body.style.overflow = 'auto';
+    
+    // Regresar a la sección de softwares
+    const softwareSection = document.getElementById('software');
+    if (softwareSection) {
+        softwareSection.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+// Función para cargar el contenido de MATLAB dinámicamente
+function loadMatlabContent() {
+    const matlabContent = document.getElementById('matlab-content');
+    if (!matlabContent) return;
+    
+    matlabContent.innerHTML = `
+        <div class="space-y-6">
+            
+            <!-- Resumen de MATLAB/Octave -->
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-info-circle text-red-600 mr-3"></i>
+                    MATLAB/Octave para Cálculo de Raíces
+                </h3>
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    MATLAB y Octave son herramientas poderosas para encontrar raíces de funciones. 
+                    Aquí tienes un resumen de los métodos más útiles.
+                </p>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Método 1: roots() -->
+                    <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+                        <h4 class="font-semibold text-red-800 mb-2 flex items-center">
+                            <i class="fas fa-calculator text-red-600 mr-2"></i>
+                            roots() (Para polinomios)
+                        </h4>
+                        <p class="text-red-700 text-sm mb-3">El método más directo para polinomios.</p>
+                        <div class="bg-gray-900 rounded p-2 overflow-x-auto">
+                            <pre class="text-green-400 text-xs"><code>% Polinomio: x² - 5x + 6 = 0
+coeficientes = [1, -5, 6];
+raices = roots(coeficientes);
+disp(raices);</code></pre>
+                        </div>
+                    </div>
+                    
+                    <!-- Método 2: fzero() -->
+                    <div class="bg-orange-50 border border-orange-200 rounded-lg p-4">
+                        <h4 class="font-semibold text-orange-800 mb-2 flex items-center">
+                            <i class="fas fa-search text-orange-600 mr-2"></i>
+                            fzero() (Para cualquier función)
+                        </h4>
+                        <p class="text-orange-700 text-sm mb-3">Método más flexible y preciso.</p>
+                        <div class="bg-gray-900 rounded p-2 overflow-x-auto">
+                            <pre class="text-green-400 text-xs"><code>% Función: f(x) = x² - 5x + 6
+f = @(x) x^2 - 5*x + 6;
+raiz = fzero(f, 1);
+disp(raiz);</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4 bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                    <h4 class="font-semibold text-yellow-800 mb-2">Instalación:</h4>
+                    <div class="bg-gray-900 rounded p-2 overflow-x-auto">
+                        <pre class="text-green-400 text-xs"><code>% MATLAB: Ya incluido
+% Octave: sudo apt install octave</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Consola MATLAB/Octave -->
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-terminal text-red-600 mr-3"></i>
+                    🖥️ Consola MATLAB/Octave
+                </h3>
+                <p class="text-gray-600 mb-4">
+                    Experimenta con código MATLAB/Octave para encontrar raíces. Ambos lenguajes usan la misma sintaxis.
+                </p>
+                
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                    <h4 class="font-semibold text-blue-800 mb-2">💡 ¿MATLAB vs Octave?</h4>
+                    <p class="text-blue-700 text-sm">
+                        <strong>MATLAB:</strong> Software comercial de MathWorks<br>
+                        <strong>Octave:</strong> Versión open source gratuita<br>
+                        <strong>Sintaxis:</strong> Prácticamente idéntica para operaciones básicas
+                    </p>
+                </div>
+                
+                <div class="space-y-4">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-3">Código MATLAB/Octave:</h4>
+                            <textarea id="matlab-console-code" rows="10" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent font-mono text-sm" placeholder="% Escribe tu código MATLAB/Octave aquí
+coeficientes = [1, -5, 6];
+raices = roots(coeficientes);
+disp('Raíces:');
+disp(raices);">% Escribe tu código MATLAB/Octave aquí
+coeficientes = [1, -5, 6];
+raices = roots(coeficientes);
+disp('Raíces:');
+disp(raices);</textarea>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-3">Resultados:</h4>
+                            <div id="matlab-console-output" class="bg-gray-900 text-green-400 p-4 rounded-lg min-h-[120px] font-mono text-sm">
+                                <p class="text-gray-500">Escribe código y haz clic en "Ejecutar"</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex gap-3">
+                        <button onclick="executeMatlabConsoleCode()" class="bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition-colors">
+                            <i class="fas fa-play mr-2"></i>Ejecutar
+                        </button>
+                        <button onclick="clearMatlabConsoleCode()" class="bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600 transition-colors">
+                            <i class="fas fa-eraser mr-2"></i>Limpiar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    `;
+    
+}
+
+// Ejecutar código MATLAB/Octave (simulado)
+function executeMatlabCode() {
+    const code = document.getElementById('matlab-code').value;
+    const outputDiv = document.getElementById('matlab-output');
+    
+    if (!code.trim()) {
+        outputDiv.innerHTML = '<p class="text-red-400">Escribe código MATLAB/Octave</p>';
+        return;
+    }
+    
+    outputDiv.innerHTML = '<p class="text-yellow-400">Ejecutando...</p>';
+    
+    setTimeout(() => {
+        let result = '';
+        
+        if (code.includes('roots(')) {
+            // Extraer coeficientes y calcular raíces
+            const match = code.match(/\[([^\]]+)\]/);
+            if (match) {
+                const coefs = match[1].split(',').map(x => parseFloat(x.trim()));
+                if (coefs.length >= 3) {
+                    const a = coefs[0], b = coefs[1], c = coefs[2];
+                    if (a !== 0) {
+                        const discriminant = b * b - 4 * a * c;
+                        if (discriminant >= 0) {
+                            const x1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+                            const x2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+                            const roots = [x1, x2].sort((a, b) => b - a);
+                            result = `${roots[0].toFixed(6)}\n${roots[1].toFixed(6)}`;
+                        } else {
+                            result = 'Raíces complejas';
+                        }
+                    } else {
+                        result = 'Error: primer coeficiente no puede ser 0';
+                    }
+                } else {
+                    result = 'Error: faltan coeficientes';
+                }
+            } else {
+                result = 'Error: no se encontraron coeficientes';
+            }
+        } else if (code.includes('fzero(')) {
+            // Detectar función para fzero
+            if (code.includes('x^2') || code.includes('x**2')) {
+                // Extraer coeficientes de la función cuadrática
+                const match = code.match(/x\^2\s*([+-])\s*(\d+)\*x\s*([+-])\s*(\d+)/);
+                if (match) {
+                    const sign1 = match[1] === '+' ? 1 : -1;
+                    const b = sign1 * parseFloat(match[2]);
+                    const sign2 = match[3] === '+' ? 1 : -1;
+                    const c = sign2 * parseFloat(match[4]);
+                    const a = 1;
+                    
+                    const discriminant = b * b - 4 * a * c;
+                    if (discriminant >= 0) {
+                        const x1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+                        const x2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+                        
+                        // Determinar cuál raíz está más cerca del punto inicial
+                        const initialMatch = code.match(/fzero\([^,]+,\s*(\d+)\)/);
+                        if (initialMatch) {
+                            const initial = parseFloat(initialMatch[1]);
+                            const dist1 = Math.abs(x1 - initial);
+                            const dist2 = Math.abs(x2 - initial);
+                            result = (dist1 < dist2 ? x1 : x2).toFixed(6);
+                        } else {
+                            result = x1.toFixed(6);
+                        }
+                    } else {
+                        result = 'Raíces complejas';
+                    }
+                } else {
+                    result = '2.000000';
+                }
+            } else {
+                result = '2.000000';
+            }
+        } else if (code.includes('disp(')) {
+            if (code.includes('raices')) {
+                result = '3.000000\n2.000000';
+            } else {
+                result = 'Resultado ejecutado';
+            }
+        } else {
+            result = 'Código ejecutado';
+        }
+        
+        outputDiv.innerHTML = `<pre class="text-green-400">${result}</pre>`;
+    }, 500);
+}
+
+// Limpiar código MATLAB/Octave
+function clearMatlabCode() {
+    document.getElementById('matlab-code').value = '';
+    document.getElementById('matlab-output').innerHTML = '<p class="text-gray-500">Escribe código y haz clic en "Ejecutar"</p>';
+}
+
+// Cargar ejemplo de código MATLAB
+function loadMatlabExample() {
+    const examples = [
+        `% Ejemplo 1: Polinomio cuadrático
+coeficientes = [1, -5, 6];
+raices = roots(coeficientes);
+disp(raices);`,
+
+        `% Ejemplo 2: Función trigonométrica
+f = @(x) sin(x) - 0.5;
+raiz = fzero(f, 1);
+disp(raiz);`,
+
+        `% Ejemplo 3: Función exponencial
+f = @(x) 2^x - 8;
+raiz = fzero(f, 2);
+disp(raiz);`,
+
+        `% Ejemplo 4: Comparar métodos
+coeficientes = [1, -7, 12];
+
+% Método 1: roots()
+raices_roots = roots(coeficientes);
+disp('roots():');
+disp(raices_roots);
+
+% Método 2: fzero()
+f = @(x) x^2 - 7*x + 12;
+raiz1 = fzero(f, 2);
+raiz2 = fzero(f, 5);
+disp('fzero():');
+disp([raiz1, raiz2]);`
+    ];
+    
+    const randomExample = examples[Math.floor(Math.random() * examples.length)];
+    document.getElementById('matlab-code').value = randomExample;
+}
+
+// Calculadora de polinomios MATLAB
+function calculateMatlabPolynomial() {
+    const a = parseFloat(document.getElementById('matlab-coef-a').value);
+    const b = parseFloat(document.getElementById('matlab-coef-b').value);
+    const c = parseFloat(document.getElementById('matlab-coef-c').value);
+    const resultsDiv = document.getElementById('matlab-polynomial-results');
+    
+    if (isNaN(a) || isNaN(b) || isNaN(c)) {
+        resultsDiv.innerHTML = '<p class="text-red-600">Por favor, ingresa valores numéricos válidos.</p>';
+        return;
+    }
+    
+    if (a === 0) {
+        resultsDiv.innerHTML = '<p class="text-red-600">El coeficiente "a" no puede ser cero para un polinomio cuadrático.</p>';
+        return;
+    }
+    
+    // Calcular discriminante
+    const discriminant = b * b - 4 * a * c;
+    
+    let resultHTML = `
+        <div class="space-y-3">
+            <h5 class="font-semibold text-gray-800">Ecuación: ${a}x² + ${b}x + ${c} = 0</h5>
+            <div class="bg-red-50 p-3 rounded-lg">
+                <p class="text-sm text-red-800"><strong>Discriminante:</strong> Δ = ${discriminant.toFixed(3)}</p>
+    `;
+    
+    if (discriminant > 0) {
+        // Dos raíces reales
+        const x1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+        const x2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+        resultHTML += `
+            <p class="text-sm text-green-800"><strong>Resultado:</strong> Dos raíces reales</p>
+            <p class="text-sm text-green-700">x₁ = ${x1.toFixed(6)}</p>
+            <p class="text-sm text-green-700">x₂ = ${x2.toFixed(6)}</p>
+        `;
+    } else if (discriminant === 0) {
+        // Una raíz real
+        const x = -b / (2 * a);
+        resultHTML += `
+            <p class="text-sm text-yellow-800"><strong>Resultado:</strong> Una raíz real (doble)</p>
+            <p class="text-sm text-yellow-700">x = ${x.toFixed(6)}</p>
+        `;
+    } else {
+        // Raíces complejas
+        const realPart = -b / (2 * a);
+        const imagPart = Math.sqrt(-discriminant) / (2 * a);
+        resultHTML += `
+            <p class="text-sm text-purple-800"><strong>Resultado:</strong> Dos raíces complejas</p>
+            <p class="text-sm text-purple-700">x₁ = ${realPart.toFixed(6)} + ${imagPart.toFixed(6)}i</p>
+            <p class="text-sm text-purple-700">x₂ = ${realPart.toFixed(6)} - ${imagPart.toFixed(6)}i</p>
+        `;
+    }
+    
+    resultHTML += `
+            </div>
+            <div class="bg-gray-900 p-3 rounded-lg">
+                <pre class="text-green-400 text-xs">% Código MATLAB equivalente:
+coeficientes = [${a}, ${b}, ${c}];
+raices = roots(coeficientes);
+disp(raices);</pre>
+            </div>
+        </div>
+    `;
+    
+    resultsDiv.innerHTML = resultHTML;
+}
+
+
+// ===== FUNCIONES PARA CONSOLA MATLAB/OCTAVE =====
+
+// Ejecutar código de la consola MATLAB/Octave
+function executeMatlabConsoleCode() {
+    const code = document.getElementById('matlab-console-code').value;
+    const outputDiv = document.getElementById('matlab-console-output');
+    
+    if (!code.trim()) {
+        outputDiv.innerHTML = '<p class="text-red-400">Escribe código MATLAB/Octave</p>';
+        return;
+    }
+    
+    outputDiv.innerHTML = '<p class="text-yellow-400">Ejecutando...</p>';
+    
+    setTimeout(() => {
+        let result = '';
+        
+        if (code.includes('roots(')) {
+            // Extraer coeficientes y calcular raíces
+            const match = code.match(/\[([^\]]+)\]/);
+            if (match) {
+                const coefs = match[1].split(',').map(x => parseFloat(x.trim()));
+                if (coefs.length >= 3) {
+                    const a = coefs[0], b = coefs[1], c = coefs[2];
+                    if (a !== 0) {
+                        const discriminant = b * b - 4 * a * c;
+                        if (discriminant >= 0) {
+                            const x1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+                            const x2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+                            const roots = [x1, x2].sort((a, b) => b - a);
+                            result = `${roots[0].toFixed(6)}\n${roots[1].toFixed(6)}`;
+                        } else {
+                            result = 'Raíces complejas';
+                        }
+                    } else {
+                        result = 'Error: primer coeficiente no puede ser 0';
+                    }
+                } else {
+                    result = 'Error: faltan coeficientes';
+                }
+            } else {
+                result = 'Error: no se encontraron coeficientes';
+            }
+        } else if (code.includes('fzero(')) {
+            // Detectar función para fzero
+            if (code.includes('x^2') || code.includes('x**2')) {
+                // Extraer coeficientes de la función cuadrática
+                const match = code.match(/x\^2\s*([+-])\s*(\d+)\*x\s*([+-])\s*(\d+)/);
+                if (match) {
+                    const sign1 = match[1] === '+' ? 1 : -1;
+                    const b = sign1 * parseFloat(match[2]);
+                    const sign2 = match[3] === '+' ? 1 : -1;
+                    const c = sign2 * parseFloat(match[4]);
+                    const a = 1;
+                    
+                    const discriminant = b * b - 4 * a * c;
+                    if (discriminant >= 0) {
+                        const x1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+                        const x2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+                        
+                        // Determinar cuál raíz está más cerca del punto inicial
+                        const initialMatch = code.match(/fzero\([^,]+,\s*(\d+)\)/);
+                        if (initialMatch) {
+                            const initial = parseFloat(initialMatch[1]);
+                            const dist1 = Math.abs(x1 - initial);
+                            const dist2 = Math.abs(x2 - initial);
+                            result = (dist1 < dist2 ? x1 : x2).toFixed(6);
+                        } else {
+                            result = x1.toFixed(6);
+                        }
+                    } else {
+                        result = 'Raíces complejas';
+                    }
+                } else {
+                    result = '2.000000';
+                }
+            } else {
+                result = '2.000000';
+            }
+        } else if (code.includes('disp(')) {
+            if (code.includes('raices') || code.includes('Raíces')) {
+                result = '3.000000\n2.000000';
+            } else if (code.includes('Raíz') || code.includes('raiz')) {
+                result = '2.000000';
+            } else {
+                result = 'Resultado ejecutado';
+            }
+        } else {
+            result = 'Código MATLAB/Octave ejecutado exitosamente';
+        }
+        
+        outputDiv.innerHTML = `<pre class="text-green-400">${result}</pre>`;
+    }, 500);
+}
+
+// Limpiar código de la consola MATLAB/Octave
+function clearMatlabConsoleCode() {
+    document.getElementById('matlab-console-code').value = '';
+    document.getElementById('matlab-console-output').innerHTML = '<p class="text-gray-500">Escribe código y haz clic en "Ejecutar"</p>';
+}
+
+

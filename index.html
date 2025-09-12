@@ -314,8 +314,8 @@
                     <div class="bg-white rounded-lg p-3 mb-4">
                         <p class="font-mono text-sm">Solver: f(x) = 0</p>
                     </div>
-                    <button class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors">
-                        Descargar ejemplo
+                    <button class="w-full bg-gray-400 text-white py-2 rounded-lg cursor-not-allowed" disabled>
+                        <i class="fas fa-table mr-2"></i>Ejemplo en Google Sheets
                     </button>
                 </div>
 
@@ -329,7 +329,7 @@
                     <div class="bg-white rounded-lg p-3 mb-4">
                         <p class="font-mono text-sm">scipy.optimize.fsolve()</p>
                     </div>
-                    <button class="w-full bg-yellow-600 text-white py-2 rounded-lg hover:bg-yellow-700 transition-colors">
+                    <button onclick="openPythonWindow()" class="w-full bg-yellow-600 text-white py-2 rounded-lg hover:bg-yellow-700 transition-colors">
                         Ver código
                     </button>
                 </div>
@@ -344,7 +344,7 @@
                     <div class="bg-white rounded-lg p-3 mb-4">
                         <p class="font-mono text-sm">fzero() y roots()</p>
                     </div>
-                    <button class="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition-colors">
+                    <button onclick="openMatlabModal()" class="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition-colors">
                         Ver ejemplo
                     </button>
                 </div>
@@ -480,7 +480,8 @@
         </div>
     </section>
 
-    <!-- 6. Conclusión -->
+
+    <!-- 7. Conclusión -->
     <section class="py-20 bg-gradient-to-br from-blue-600 to-purple-700 text-white">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div class="fade-in">
@@ -507,8 +508,69 @@
         </div>
     </footer>
 
-    <!-- Modal para código Python -->
-    <div id="pythonModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
+    <!-- Modal a pantalla completa para código Python -->
+    <div id="pythonModal" class="fixed inset-0 bg-white hidden z-50 overflow-y-auto">
+        <div class="min-h-screen">
+            <!-- Header del modal -->
+            <div class="sticky top-0 bg-gradient-to-r from-yellow-500 to-yellow-600 text-white shadow-lg z-10">
+                <div class="max-w-7xl mx-auto px-4 py-6">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <i class="fab fa-python text-4xl"></i>
+                            <div>
+                                <h1 class="text-3xl font-bold">Código Python para Cálculo de Raíces</h1>
+                                <p class="text-yellow-100">Métodos básicos para encontrar ceros de funciones</p>
+                            </div>
+                        </div>
+                        <button onclick="closePythonModal()" class="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg transition-colors">
+                            <i class="fas fa-times mr-2"></i>Cerrar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenido del modal -->
+            <div class="max-w-7xl mx-auto px-4 py-8">
+                <div id="python-content">
+                    <!-- El contenido se cargará dinámicamente -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de MATLAB/Octave (pantalla completa) -->
+    <div id="matlabModal" class="fixed inset-0 bg-white hidden z-50 overflow-y-auto">
+        <div class="min-h-screen">
+            <!-- Header del modal -->
+            <div class="sticky top-0 bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg z-10">
+                <div class="max-w-7xl mx-auto px-4 py-6">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-cube text-4xl"></i>
+                            <div>
+                                <h1 class="text-3xl font-bold">Código MATLAB/Octave para Cálculo de Raíces</h1>
+                                <p class="text-red-100">Métodos numéricos para encontrar ceros de funciones</p>
+                            </div>
+                        </div>
+                        <button onclick="closeMatlabModal()" class="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg transition-colors">
+                            <i class="fas fa-times mr-2"></i>Cerrar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenido del modal -->
+            <div class="max-w-7xl mx-auto px-4 py-8">
+                <div id="matlab-content">
+                    <!-- El contenido se cargará dinámicamente -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal original para código Python (mantener por compatibilidad) -->
+    <div id="pythonModalOld" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
             <div class="flex justify-between items-center p-6 border-b border-gray-200">
                 <h3 class="text-2xl font-bold text-gray-800 flex items-center">
