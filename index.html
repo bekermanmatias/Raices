@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raíces de Funciones: Teoría y Software</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Script para verificar carga de librerías -->
+    <script>
+        window.addEventListener('load', function() {
+            console.log('Página completamente cargada');
+            console.log('Chart.js disponible:', typeof Chart !== 'undefined');
+            console.log('Math.js disponible:', typeof math !== 'undefined');
+            
+            if (typeof Chart === 'undefined') {
+                console.error('Chart.js no se cargó correctamente');
+            }
+            if (typeof math === 'undefined') {
+                console.error('Math.js no se cargó correctamente');
+            }
+        });
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .math-bg {
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navegación fija -->
+    <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-sm shadow-lg z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-square-root-alt text-2xl text-blue-600"></i>
+                    <span class="text-xl font-bold text-gray-800">Raíces</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#inicio" class="nav-link text-gray-600 hover:text-blue-600 transition-colors">Inicio</a>
+                    <a href="#teoria" class="nav-link text-gray-600 hover:text-blue-600 transition-colors">Teoría</a>
+                    <a href="#manual" class="nav-link text-gray-600 hover:text-blue-600 transition-colors">Manual</a>
+                    <a href="#software" class="nav-link text-gray-600 hover:text-blue-600 transition-colors">Software</a>
+                    <a href="#demo" class="nav-link text-gray-600 hover:text-blue-600 transition-colors">Demo</a>
+                    <a href="#comparacion" class="nav-link text-gray-600 hover:text-blue-600 transition-colors">Comparación</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 1. Encabezado / Portada -->
+    <section id="inicio" class="min-h-screen flex items-center justify-center gradient-bg math-bg relative overflow-hidden">
+        <!-- Overlay oscuro para mejor contraste -->
+        <div class="absolute inset-0 bg-black bg-opacity-30"></div>
+        <!-- Logos flotantes -->
+        <div class="absolute top-20 left-10 floating z-20">
+            <div class="bg-white/30 backdrop-blur-sm rounded-lg p-3 shadow-lg">
+                <i class="fas fa-calculator text-2xl text-white drop-shadow-md"></i>
+            </div>
+        </div>
+        <div class="absolute top-32 right-16 floating z-20" style="animation-delay: 0.5s;">
+            <div class="bg-white/30 backdrop-blur-sm rounded-lg p-3 shadow-lg">
+                <i class="fab fa-python text-2xl text-white drop-shadow-md"></i>
+            </div>
+        </div>
+        <div class="absolute bottom-32 left-20 floating z-20" style="animation-delay: 1s;">
+            <div class="bg-white/30 backdrop-blur-sm rounded-lg p-3 shadow-lg">
+                <i class="fas fa-chart-line text-2xl text-white drop-shadow-md"></i>
+            </div>
+        </div>
+        <div class="absolute bottom-20 right-10 floating z-20" style="animation-delay: 1.5s;">
+            <div class="bg-white/30 backdrop-blur-sm rounded-lg p-3 shadow-lg">
+                <i class="fas fa-cube text-2xl text-white drop-shadow-md"></i>
+            </div>
+        </div>
+
+        <div class="text-center text-white px-4 max-w-4xl mx-auto relative z-10">
+            <div class="fade-in">
+                <i class="fas fa-square-root-alt text-8xl mb-8 opacity-90"></i>
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 drop-shadow-lg">
+                    Raíces de Funciones: Teoría y Software
+                </h1>
+                <p class="text-xl md:text-2xl mb-12 opacity-95 max-w-3xl mx-auto drop-shadow-md">
+                    Encontrando ceros de funciones: de los métodos clásicos al software moderno para análisis numérico.
+                </p>
+                <button onclick="scrollToSection('teoria')" 
+                        class="bg-white text-blue-600 px-8 py-4 rounded-full text-lg font-semibold hover:bg-gray-100 transition-all transform hover:scale-105 shadow-xl">
+                    Comenzar explicación
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. ¿Qué es una raíz de función? (Teoría básica) -->
+    <section id="teoria" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">¿Qué es una raíz de función?</h2>
+                <p class="text-xl text-gray-600">Conceptos fundamentales para análisis numérico</p>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                <!-- Definición principal -->
+                <div class="fade-in bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow mb-8">
+                    <div class="flex items-center mb-6">
+                        <i class="fas fa-chart-line text-4xl text-blue-600 mr-4"></i>
+                        <h3 class="text-3xl font-bold text-gray-800">Definición de Raíz</h3>
+                    </div>
+                    <div class="bg-white rounded-lg p-6 mb-6">
+                        <p class="text-lg text-gray-700 mb-4">
+                            Una <strong>raíz</strong> (o <strong>cero</strong>) de una función f(x) es un valor de x tal que:
+                        </p>
+                        <div class="text-center">
+                            <p class="text-3xl font-mono bg-gray-100 px-6 py-3 rounded-lg inline-block">f(x) = 0</p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg p-6">
+                        <h4 class="text-xl font-semibold text-gray-800 mb-4">Ejemplo:</h4>
+                        <p class="font-mono text-lg mb-2">f(x) = x² - 5x + 6</p>
+                        <p class="text-gray-600">Las raíces son: x = 2 y x = 3</p>
+                        <p class="text-sm text-gray-500 mt-2">Verificación: f(2) = 0 y f(3) = 0</p>
+                    </div>
+                </div>
+
+                <!-- Interpretación geométrica -->
+                <div class="fade-in bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="flex items-center mb-6">
+                        <i class="fas fa-chart-area text-4xl text-green-600 mr-4"></i>
+                        <h3 class="text-3xl font-bold text-gray-800">Interpretación Geométrica</h3>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <p class="text-gray-700 mb-4">
+                                Las raíces de una función corresponden a los <strong>puntos de intersección</strong> 
+                                de la gráfica de f(x) con el <strong>eje X</strong>.
+                            </p>
+                            <div class="bg-white rounded-lg p-4">
+                                <h4 class="font-semibold text-gray-800 mb-2">Características:</h4>
+                                <ul class="text-gray-600 space-y-1">
+                                    <li>• Puntos donde y = 0</li>
+                                    <li>• Pueden ser reales o complejas</li>
+                                    <li>• Una función puede tener múltiples raíces</li>
+                                    <li>• Algunas funciones no tienen raíces reales</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg p-4 h-48 flex items-center justify-center">
+                            <canvas id="equationGraph" width="300" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Ejemplo Manual Paso a Paso -->
+    <section id="manual" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Método Manual: Fórmula Cuadrática</h2>
+                <p class="text-xl text-gray-600">Encontrando las raíces de f(x) = x² - 5x + 6 = 0 paso a paso</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <!-- Paso 1 -->
+                    <div class="fade-in bg-white rounded-xl p-6 shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <span class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4">1</span>
+                            <h3 class="text-xl font-bold text-gray-800">Identificar coeficientes</h3>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <p class="font-mono text-lg">a = 1, b = -5, c = 6</p>
+                        </div>
+                    </div>
+
+                    <!-- Paso 2 -->
+                    <div class="fade-in bg-white rounded-xl p-6 shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <span class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4">2</span>
+                            <h3 class="text-xl font-bold text-gray-800">Aplicar fórmula cuadrática</h3>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <p class="font-mono text-sm">x = (-b ± √(b² - 4ac)) / 2a</p>
+                        </div>
+                    </div>
+
+                    <!-- Paso 3 -->
+                    <div class="fade-in bg-white rounded-xl p-6 shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <span class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4">3</span>
+                            <h3 class="text-xl font-bold text-gray-800">Calcular</h3>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-4 space-y-2">
+                            <p class="font-mono text-sm">x = (5 ± √(25 - 24)) / 2</p>
+                            <p class="font-mono text-sm">x = (5 ± 1) / 2</p>
+                        </div>
+                    </div>
+
+                    <!-- Paso 4 -->
+                    <div class="fade-in bg-white rounded-xl p-6 shadow-lg border-2 border-green-500">
+                        <div class="flex items-center mb-4">
+                            <span class="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4">4</span>
+                            <h3 class="text-xl font-bold text-gray-800">Resultado final</h3>
+                        </div>
+                        <div class="bg-green-50 rounded-lg p-4">
+                            <p class="font-mono text-lg font-bold text-green-700">x = 2 y x = 3</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fade-in">
+                    <div class="bg-white rounded-xl p-8 shadow-lg">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Visualización</h3>
+                        <canvas id="manualGraph" width="400" height="300"></canvas>
+                        <div class="mt-4 text-center">
+                            <p class="text-gray-600">La parábola corta el eje X en los puntos (2,0) y (3,0)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Softwares Modernos para Calcular Raíces -->
+    <section id="software" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Software Moderno para Encontrar Raíces</h2>
+                <p class="text-xl text-gray-600">Herramientas digitales para análisis numérico y resolución de ceros de funciones</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- GeoGebra -->
+                <div class="fade-in bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-chart-line text-4xl text-blue-600 mb-3"></i>
+                        <h3 class="text-xl font-bold text-gray-800">GeoGebra</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Visualización gráfica y resolución de raíces</p>
+                    <div class="bg-white rounded-lg p-3 mb-4">
+                        <p class="font-mono text-sm">f(x) = x² - 5x + 6</p>
+                    </div>
+                    <button class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                        Probar GeoGebra
+                    </button>
+                </div>
+
+                <!-- WolframAlpha -->
+                <div class="fade-in bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-search text-4xl text-orange-600 mb-3"></i>
+                        <h3 class="text-xl font-bold text-gray-800">WolframAlpha</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Resolución directa de raíces, rápido y preciso</p>
+                    <div class="bg-white rounded-lg p-3 mb-4">
+                        <p class="font-mono text-sm">solve x² - 5x + 6 = 0</p>
+                    </div>
+                    <button class="w-full bg-orange-600 text-white py-2 rounded-lg hover:bg-orange-700 transition-colors">
+                        Resolver ahora
+                    </button>
+                </div>
+
+                <!-- Desmos -->
+                <div class="fade-in bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-chart-area text-4xl text-purple-600 mb-3"></i>
+                        <h3 class="text-xl font-bold text-gray-800">Desmos</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Visualización gráfica de funciones y sus raíces</p>
+                    <div class="bg-white rounded-lg p-3 mb-4">
+                        <p class="font-mono text-sm">f(x) = x² - 5x + 6</p>
+                    </div>
+                    <button class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                        Probar Desmos
+                    </button>
+                </div>
+
+                <!-- Excel -->
+                <div class="fade-in bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-table text-4xl text-green-600 mb-3"></i>
+                        <h3 class="text-xl font-bold text-gray-800">Excel / Google Sheets</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Solver para encontrar raíces de funciones</p>
+                    <div class="bg-white rounded-lg p-3 mb-4">
+                        <p class="font-mono text-sm">Solver: f(x) = 0</p>
+                    </div>
+                    <button class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors">
+                        Descargar ejemplo
+                    </button>
+                </div>
+
+                <!-- Python -->
+                <div class="fade-in bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+                    <div class="text-center mb-4">
+                        <i class="fab fa-python text-4xl text-yellow-600 mb-3"></i>
+                        <h3 class="text-xl font-bold text-gray-800">Python</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Algoritmos numéricos para encontrar raíces</p>
+                    <div class="bg-white rounded-lg p-3 mb-4">
+                        <p class="font-mono text-sm">scipy.optimize.fsolve()</p>
+                    </div>
+                    <button class="w-full bg-yellow-600 text-white py-2 rounded-lg hover:bg-yellow-700 transition-colors">
+                        Ver código
+                    </button>
+                </div>
+
+                <!-- MATLAB -->
+                <div class="fade-in bg-gradient-to-br from-red-50 to-red-100 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-cube text-4xl text-red-600 mb-3"></i>
+                        <h3 class="text-xl font-bold text-gray-800">MATLAB / Octave</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Métodos numéricos avanzados para raíces</p>
+                    <div class="bg-white rounded-lg p-3 mb-4">
+                        <p class="font-mono text-sm">fzero() y roots()</p>
+                    </div>
+                    <button class="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition-colors">
+                        Ver ejemplo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4.1 Demo Integrada -->
+    <section id="demo" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Demo Interactiva: Encontrar Raíces</h2>
+                <p class="text-xl text-gray-600">Ingresa una función y encuentra sus raíces en tiempo real</p>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white rounded-xl shadow-lg p-8">
+                    <div class="mb-8">
+                        <label class="block text-lg font-semibold text-gray-700 mb-4">
+                            Ingresa una función f(x) (ejemplo: x^3 - 2*x + 1)
+                        </label>
+                        <div class="flex gap-4">
+                            <input type="text" id="equationInput" 
+                                   value="x^3 - 2*x + 1"
+                                   class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono">
+                            <button onclick="solveEquation()" 
+                                    class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors font-semibold">
+                                Encontrar raíces
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="grid lg:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-800 mb-4">Gráfico</h3>
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <canvas id="demoChart" width="400" height="300"></canvas>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-800 mb-4">Resultados</h3>
+                            <div id="results" class="bg-gray-50 rounded-lg p-4 min-h-[200px]">
+                                <p class="text-gray-600">Presiona el botón para calcular las raíces</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Comparación Manual vs Software -->
+    <section id="comparacion" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Comparación: Métodos para Encontrar Raíces</h2>
+                <p class="text-xl text-gray-600">Análisis de ventajas y desventajas de cada enfoque</p>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full bg-white rounded-xl shadow-lg overflow-hidden">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-4 text-left text-lg font-bold text-gray-800">Método</th>
+                            <th class="px-6 py-4 text-left text-lg font-bold text-gray-800">Ventajas</th>
+                            <th class="px-6 py-4 text-left text-lg font-bold text-gray-800">Desventajas</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4">
+                                <div class="flex items-center">
+                                    <i class="fas fa-pencil-alt text-blue-600 mr-3"></i>
+                                    <span class="font-semibold">Manual</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-gray-700">Comprensión profunda del algoritmo</td>
+                            <td class="px-6 py-4 text-gray-700">Lento, propenso a errores humanos</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4">
+                                <div class="flex items-center">
+                                    <i class="fas fa-chart-line text-blue-600 mr-3"></i>
+                                    <span class="font-semibold">GeoGebra</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-gray-700">Visualización gráfica de raíces</td>
+                            <td class="px-6 py-4 text-gray-700">Limitado para funciones complejas</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4">
+                                <div class="flex items-center">
+                                    <i class="fas fa-search text-orange-600 mr-3"></i>
+                                    <span class="font-semibold">WolframAlpha</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-gray-700">Resolución rápida y precisa de raíces</td>
+                            <td class="px-6 py-4 text-gray-700">Versión completa es paga</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4">
+                                <div class="flex items-center">
+                                    <i class="fab fa-python text-yellow-600 mr-3"></i>
+                                    <span class="font-semibold">Python</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-gray-700">Múltiples algoritmos numéricos</td>
+                            <td class="px-6 py-4 text-gray-700">Requiere conocimientos de programación</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4">
+                                <div class="flex items-center">
+                                    <i class="fas fa-table text-green-600 mr-3"></i>
+                                    <span class="font-semibold">Excel</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-gray-700">Solver accesible y familiar</td>
+                            <td class="px-6 py-4 text-gray-700">Limitado para funciones complejas</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4">
+                                <div class="flex items-center">
+                                    <i class="fas fa-cube text-red-600 mr-3"></i>
+                                    <span class="font-semibold">MATLAB</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-gray-700">Métodos numéricos profesionales</td>
+                            <td class="px-6 py-4 text-gray-700">Licencia paga y curva de aprendizaje</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Conclusión -->
+    <section class="py-20 bg-gradient-to-br from-blue-600 to-purple-700 text-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="fade-in">
+                <h2 class="text-4xl font-bold mb-8">Conclusión</h2>
+                <p class="text-xl mb-12 leading-relaxed">
+                    El software moderno nos permite encontrar raíces de funciones de manera rápida y precisa. 
+                    Sin embargo, comprender los métodos numéricos fundamentales sigue siendo esencial para 
+                    el análisis numérico y la interpretación correcta de los resultados.
+                </p>
+                <button onclick="scrollToSection('software')" 
+                        class="bg-white text-blue-600 px-8 py-4 rounded-full text-lg font-semibold hover:bg-gray-100 transition-all transform hover:scale-105 shadow-lg">
+                    Explorar los softwares mencionados
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <p class="text-sm text-gray-300">2025 - Grupo 9 | Análisis Numérico | UTN FRLP</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal para código Python -->
+    <div id="pythonModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+            <div class="flex justify-between items-center p-6 border-b border-gray-200">
+                <h3 class="text-2xl font-bold text-gray-800 flex items-center">
+                    <i class="fab fa-python text-3xl text-yellow-600 mr-3"></i>
+                    Código Python para Cálculo de Raíces
+                </h3>
+                <button onclick="closePythonModal()" class="text-gray-400 hover:text-gray-600 text-2xl">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
+                <div class="space-y-6">
+                    <!-- Método 1: NumPy -->
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-800 mb-3">Método 1: Usando NumPy</h4>
+                        <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+                            <pre class="text-green-400 text-sm"><code>import numpy as np
+
+# Para polinomios: x² - 5x + 6 = 0
+coeficientes = [1, -5, 6]  # [a, b, c] para ax² + bx + c
+raices = np.roots(coeficientes)
+print("Raíces:", raices)
+
+# Resultado: [3. 2.]</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Método 2: SciPy -->
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-800 mb-3">Método 2: Usando SciPy (Más preciso)</h4>
+                        <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+                            <pre class="text-green-400 text-sm"><code>from scipy.optimize import fsolve
+import numpy as np
+
+def ecuacion(x):
+    return x**2 - 5*x + 6
+
+# Encontrar raíces cerca de valores iniciales
+raiz1 = fsolve(ecuacion, 1)  # Busca cerca de x=1
+raiz2 = fsolve(ecuacion, 4)  # Busca cerca de x=4
+
+print(f"Raíz 1: {raiz1[0]:.6f}")
+print(f"Raíz 2: {raiz2[0]:.6f}")</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Método 3: SymPy (Simbólico) -->
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-800 mb-3">Método 3: Usando SymPy (Cálculo simbólico)</h4>
+                        <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+                            <pre class="text-green-400 text-sm"><code>from sympy import symbols, solve, diff
+import sympy as sp
+
+x = symbols('x')
+ecuacion = x**2 - 5*x + 6
+
+# Resolver simbólicamente
+raices = solve(ecuacion, x)
+print("Raíces exactas:", raices)
+
+# Evaluar numéricamente
+for raiz in raices:
+    print(f"x = {float(raiz):.6f}")</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Método 4: Método de Newton-Raphson -->
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-800 mb-3">Método 4: Newton-Raphson (Implementación manual)</h4>
+                        <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+                            <pre class="text-green-400 text-sm"><code>def newton_raphson(f, df, x0, tolerancia=1e-6, max_iter=100):
+    """
+    Método de Newton-Raphson para encontrar raíces
+    f: función
+    df: derivada de la función
+    x0: valor inicial
+    """
+    x = x0
+    for i in range(max_iter):
+        fx = f(x)
+        if abs(fx) < tolerancia:
+            return x, i+1
+        dfx = df(x)
+        if dfx == 0:
+            return None, i+1
+        x = x - fx/dfx
+    return x, max_iter
+
+# Definir función y su derivada
+def f(x):
+    return x**2 - 5*x + 6
+
+def df(x):
+    return 2*x - 5
+
+# Encontrar raíces
+raiz1, iter1 = newton_raphson(f, df, 1)
+raiz2, iter2 = newton_raphson(f, df, 4)
+
+print(f"Raíz 1: {raiz1:.6f} (en {iter1} iteraciones)")
+print(f"Raíz 2: {raiz2:.6f} (en {iter2} iteraciones)")</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Instalación -->
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                        <h4 class="text-lg font-semibold text-blue-800 mb-2">📦 Instalación de librerías</h4>
+                        <div class="bg-gray-900 rounded-lg p-3 overflow-x-auto">
+                            <pre class="text-green-400 text-sm"><code># Instalar las librerías necesarias
+pip install numpy scipy sympy matplotlib
+
+# O usando conda
+conda install numpy scipy sympy matplotlib</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Ventajas -->
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                        <h4 class="text-lg font-semibold text-green-800 mb-2">✅ Ventajas de Python para cálculo de raíces</h4>
+                        <ul class="text-green-700 space-y-1">
+                            <li>• <strong>Flexibilidad:</strong> Múltiples métodos disponibles</li>
+                            <li>• <strong>Precisión:</strong> Cálculos de alta precisión</li>
+                            <li>• <strong>Visualización:</strong> Fácil graficación con Matplotlib</li>
+                            <li>• <strong>Gratuito:</strong> Código abierto y sin costo</li>
+                            <li>• <strong>Comunidad:</strong> Amplia documentación y soporte</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-end p-6 border-t border-gray-200">
+                <button onclick="closePythonModal()" class="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition-colors">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
