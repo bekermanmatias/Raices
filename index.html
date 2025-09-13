@@ -69,7 +69,6 @@
                     <a href="#teoria" class="nav-link text-gray-600 hover:text-blue-600 transition-colors">Teoría</a>
                     <a href="#manual" class="nav-link text-gray-600 hover:text-blue-600 transition-colors">Manual</a>
                     <a href="#software" class="nav-link text-gray-600 hover:text-blue-600 transition-colors">Software</a>
-                    <a href="#demo" class="nav-link text-gray-600 hover:text-blue-600 transition-colors">Demo</a>
                     <a href="#comparacion" class="nav-link text-gray-600 hover:text-blue-600 transition-colors">Comparación</a>
                 </div>
             </div>
@@ -352,49 +351,6 @@
         </div>
     </section>
 
-    <!-- 4.1 Demo Integrada -->
-    <section id="demo" class="py-20 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold text-gray-800 mb-4">Demo Interactiva: Encontrar Raíces</h2>
-                <p class="text-xl text-gray-600">Ingresa una función y encuentra sus raíces en tiempo real</p>
-            </div>
-
-            <div class="max-w-4xl mx-auto">
-                <div class="bg-white rounded-xl shadow-lg p-8">
-                    <div class="mb-8">
-                        <label class="block text-lg font-semibold text-gray-700 mb-4">
-                            Ingresa una función f(x) (ejemplo: x^3 - 2*x + 1)
-                        </label>
-                        <div class="flex gap-4">
-                            <input type="text" id="equationInput" 
-                                   value="x^3 - 2*x + 1"
-                                   class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono">
-                            <button onclick="solveEquation()" 
-                                    class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors font-semibold">
-                                Encontrar raíces
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="grid lg:grid-cols-2 gap-8">
-                        <div>
-                            <h3 class="text-xl font-bold text-gray-800 mb-4">Gráfico</h3>
-                            <div class="bg-gray-50 rounded-lg p-4">
-                                <canvas id="demoChart" width="400" height="300"></canvas>
-                            </div>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-gray-800 mb-4">Resultados</h3>
-                            <div id="results" class="bg-gray-50 rounded-lg p-4 min-h-[200px]">
-                                <p class="text-gray-600">Presiona el botón para calcular las raíces</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- 5. Comparación Manual vs Software -->
     <section id="comparacion" class="py-20 bg-white">
