@@ -1,72 +1,61 @@
-# Raíces: Cálculo con Software Actual
+# Raíces de Funciones - Análisis Numérico
 
-Una landing page moderna que explora cómo resolver raíces matemáticas tanto de manera manual como usando software actual.
+Una aplicación web educativa para explicar el cálculo de raíces de funciones utilizando software moderno.
 
-## 🎯 Características
+## 📋 Información del Proyecto
 
-- **SPA (Single Page Application)** con navegación por scroll suave
-- **Diseño moderno** usando Tailwind CSS
-- **Demo interactiva** con Chart.js y Math.js
-- **Comparación detallada** entre métodos manuales y software
-- **Animaciones suaves** y efectos visuales
-- **Responsive design** para todos los dispositivos
+- **Materia:** Análisis Numérico S33 2025
+- **Grupo:** 9
+- **Tema:** Raíces de Funciones
 
-## 📋 Secciones
+## 🎯 Descripción
 
-1. **Encabezado/Portada** - Presentación del tema con elementos visuales
-2. **Teoría Básica** - Conceptos fundamentales sobre raíces
-3. **Ejemplo Manual** - Resolución paso a paso con fórmula cuadrática
-4. **Softwares Modernos** - Grid de herramientas digitales
-5. **Demo Interactiva** - Calculadora en tiempo real
-6. **Comparación** - Tabla de ventajas y desventajas
-7. **Conclusión** - Reflexión final sobre el tema
+Esta aplicación web proporciona una guía completa para entender y calcular raíces de funciones, desde métodos manuales hasta herramientas de software moderno. Incluye:
+
+- **Teoría básica** - Conceptos fundamentales y fórmula cuadrática
+- **Aplicaciones prácticas** - Casos de uso en Ingeniería en Sistemas
+- **Software moderno** - Python, Excel, WolframAlpha, MATLAB
+- **Comparación de métodos** - Ventajas y desventajas de cada herramienta
 
 ## 🛠️ Tecnologías Utilizadas
 
+### Frontend
 - **HTML5** - Estructura semántica
-- **Tailwind CSS** - Estilos y diseño responsivo
-- **JavaScript Vanilla** - Interactividad y navegación
-- **Chart.js** - Gráficas dinámicas
-- **Math.js** - Cálculo simbólico y numérico
+- **CSS3** - Estilos y diseño responsivo
+- **Tailwind CSS** - Framework de utilidades CSS
+- **JavaScript (ES6+)** - Interactividad y funcionalidad
+
+### Bibliotecas y Herramientas
+- **MathJax** - Renderizado de fórmulas matemáticas
+- **Chart.js** - Gráficos interactivos
+- **Math.js** - Cálculos matemáticos
 - **Font Awesome** - Iconografía
 
-## 🚀 Cómo usar
+### Características
+- **Diseño responsivo** - Compatible con dispositivos móviles
+- **Modales interactivos** - Ejemplos de código y plantillas
+- **Gráficos dinámicos** - Visualización de funciones
+- **Navegación fluida** - Scroll suave entre secciones
 
-1. Abre `index.html` en tu navegador web
-2. Navega por las secciones usando el menú superior
-3. Prueba la demo interactiva ingresando ecuaciones
-4. Explora los diferentes softwares mencionados
+## 🚀 Uso
 
-## 📝 Ejemplos de ecuaciones para la demo
+1. Abrir `index.html` en un navegador web
+2. Navegar por las diferentes secciones usando el menú superior
+3. Explorar los ejemplos interactivos y modales
+4. Probar los enlaces a software externo (WolframAlpha, etc.)
 
-- `x^2 - 5*x + 6` (ecuación cuadrática)
-- `x^3 - 2*x + 1` (ecuación cúbica)
-- `sin(x)` (función trigonométrica)
-- `x^4 - 10*x^2 + 9` (ecuación cuártica)
+## 📁 Estructura del Proyecto
 
-## 🎨 Características de diseño
+```
+Raices/
+├── index.html          # Página principal
+├── script.js           # Lógica JavaScript
+├── images/             # Imágenes del proyecto
+│   ├── solverExcel1.png
+│   └── solverExcel2.png
+└── README.md           # Este archivo
+```
 
-- **Colores**: Azul y verde como colores principales
-- **Tipografía**: Fuentes modernas y legibles
-- **Animaciones**: Efectos de aparición al hacer scroll
-- **Interactividad**: Hover effects y transiciones suaves
-- **Accesibilidad**: Navegación por teclado y contraste adecuado
+## 👥 Grupo 9 - Análisis Numérico S33 2025
 
-## 📱 Compatibilidad
-
-- ✅ Chrome, Firefox, Safari, Edge
-- ✅ Dispositivos móviles y tablets
-- ✅ Navegadores modernos con soporte para ES6+
-
-## 🔧 Personalización
-
-Para modificar el contenido:
-
-1. **Ecuaciones de ejemplo**: Edita los valores en `script.js`
-2. **Colores**: Modifica las clases de Tailwind en `index.html`
-3. **Contenido**: Actualiza el texto en las secciones correspondientes
-4. **Softwares**: Agrega o modifica las tarjetas en la sección de software
-
-## 📄 Licencia
-
-Este proyecto es de código abierto y está disponible bajo la licencia MIT.
+Desarrollado como proyecto educativo para la materia de Análisis Numérico.

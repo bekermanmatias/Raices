@@ -133,10 +133,11 @@ function createManualGraph() {
     ctx.lineTo(width - padding, height / 2);
     ctx.stroke();
     
-    // Eje Y
+    // Eje Y (centrado en x=0)
+    const yAxisX = padding;
     ctx.beginPath();
-    ctx.moveTo(width / 2, padding);
-    ctx.lineTo(width / 2, height - padding);
+    ctx.moveTo(yAxisX, padding);
+    ctx.lineTo(yAxisX, height - padding);
     ctx.stroke();
     
     // Etiquetas de ejes
@@ -145,7 +146,7 @@ function createManualGraph() {
     ctx.textAlign = 'center';
     ctx.fillText('x', width - 10, height / 2 + 20);
     ctx.textAlign = 'center';
-    ctx.fillText('y', width / 2 + 10, 20);
+    ctx.fillText('y', yAxisX + 10, 20);
     
     // Dibujar parábola x² - 5x + 6
     ctx.strokeStyle = '#3b82f6';
@@ -153,9 +154,9 @@ function createManualGraph() {
     ctx.beginPath();
     
     let firstPoint = true;
-    for (let x = 0; x <= 5; x += 0.05) {
+    for (let x = -1; x <= 6; x += 0.05) {
         const y = x * x - 5 * x + 6;
-        const pixelX = padding + x * (graphWidth / 5);
+        const pixelX = padding + (x + 1) * (graphWidth / 7);
         const pixelY = height / 2 - y * (graphHeight / 10);
         
         if (firstPoint) {
@@ -167,22 +168,22 @@ function createManualGraph() {
     }
     ctx.stroke();
     
-    // Marcar raíces con círculos rojos
+    // Marcar raíces con círculos rojos (en x=2 y x=3)
     ctx.fillStyle = '#ef4444';
     ctx.beginPath();
-    ctx.arc(padding + 2 * (graphWidth / 5), height / 2, 6, 0, 2 * Math.PI);
+    ctx.arc(padding + (2 + 1) * (graphWidth / 7), height / 2, 6, 0, 2 * Math.PI);
     ctx.fill();
     
     ctx.beginPath();
-    ctx.arc(padding + 3 * (graphWidth / 5), height / 2, 6, 0, 2 * Math.PI);
+    ctx.arc(padding + (3 + 1) * (graphWidth / 7), height / 2, 6, 0, 2 * Math.PI);
     ctx.fill();
     
-    // Etiquetas de las raíces
-    ctx.fillStyle = '#ef4444';
-    ctx.font = 'bold 14px Arial';
+    // Agregar etiquetas de las raíces
+    ctx.fillStyle = '#374151';
+    ctx.font = 'bold 12px Arial';
     ctx.textAlign = 'center';
-    ctx.fillText('(2,0)', padding + 2 * (graphWidth / 5), height / 2 + 20);
-    ctx.fillText('(3,0)', padding + 3 * (graphWidth / 5), height / 2 + 20);
+    ctx.fillText('x=2', padding + (2 + 1) * (graphWidth / 7), height / 2 + 20);
+    ctx.fillText('x=3', padding + (3 + 1) * (graphWidth / 7), height / 2 + 20);
 }
 
 // Demo interactiva con Chart.js y Math.js
@@ -731,7 +732,7 @@ print("Raíz:", raiz[0])</code></pre>
             <div class="bg-white rounded-xl shadow-lg p-6">
                 <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
                     <i class="fas fa-terminal text-green-600 mr-3"></i>
-                    🖥️ Consola Python
+                     Consola Python
                 </h3>
                 <p class="text-gray-600 mb-4">
                     Escribe código Python simple y ve los resultados.
@@ -974,7 +975,7 @@ disp(raiz);</code></pre>
             <div class="bg-white rounded-xl shadow-lg p-6">
                 <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
                     <i class="fas fa-terminal text-red-600 mr-3"></i>
-                    🖥️ Consola MATLAB/Octave
+                     Consola MATLAB/Octave
                 </h3>
                 <p class="text-gray-600 mb-4">
                     Experimenta con código MATLAB/Octave para encontrar raíces. Ambos lenguajes usan la misma sintaxis.
@@ -1331,6 +1332,131 @@ function executeMatlabConsoleCode() {
 function clearMatlabConsoleCode() {
     document.getElementById('matlab-console-code').value = '';
     document.getElementById('matlab-console-output').innerHTML = '<p class="text-gray-500">Escribe código y haz clic en "Ejecutar"</p>';
+}
+
+// ===== FUNCIONES PARA EXCEL/GOOGLE SHEETS =====
+
+// Abrir modal de Excel/Google Sheets
+function openExcelModal() {
+    const modal = document.getElementById('excelModal');
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    window.scrollTo(0, 0);
+    
+    // Cargar contenido siempre
+    loadExcelContent();
+}
+
+// Cerrar modal de Excel/Google Sheets
+function closeExcelModal() {
+    const modal = document.getElementById('excelModal');
+    modal.classList.add('hidden');
+    document.body.style.overflow = 'auto';
+    
+    // Regresar a la sección de softwares
+    const softwareSection = document.getElementById('software');
+    if (softwareSection) {
+        softwareSection.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+// Función para cargar el contenido de Excel/Google Sheets dinámicamente
+function loadExcelContent() {
+    const excelContent = document.getElementById('excel-content');
+    if (!excelContent) return;
+    
+    excelContent.innerHTML = `
+        <div class="space-y-8">
+            
+
+            <!-- Paso 1: Preparar la función -->
+            <div class="space-y-4">
+                <h4 class="text-lg font-semibold text-gray-800 flex items-center">
+                    <span class="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3">1</span>
+                    Preparar la función
+                </h4>
+                
+                <div class="pl-9 space-y-3">
+                    <p class="text-gray-700">En Excel, crea celdas para los coeficientes de f(x) = ax² + bx + c:</p>
+                    <ul class="text-gray-600 space-y-1 ml-4">
+                        <li>• <strong>a = 1</strong> en B3</li>
+                        <li>• <strong>b = -5</strong> en B4</li>
+                        <li>• <strong>c = 6</strong> en B5</li>
+                    </ul>
+                    
+                    <p class="text-gray-700">Configura las celdas principales:</p>
+                    <ul class="text-gray-600 space-y-1 ml-4">
+                        <li>• <strong>En B7:</strong> valor inicial para x (ejemplo: 0)</li>
+                        <li>• <strong>En B9:</strong> fórmula:</li>
+                    </ul>
+                    <div class="bg-gray-100 rounded p-3 ml-4">
+                        <code class="text-gray-800 text-sm">=B3*B7^2 + B4*B7 + B5</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paso 2: Configurar Solver -->
+            <div class="space-y-4">
+                <h4 class="text-lg font-semibold text-gray-800 flex items-center">
+                    <span class="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3">2</span>
+                    Configurar Solver
+                </h4>
+                
+                <div class="pl-9 space-y-3">
+                    <p class="text-gray-700">Solver es una herramienta de Excel que encuentra automáticamente el valor de una variable para que una función sea igual a un objetivo específico.</p>
+                    <p class="text-gray-700">Ve a <strong>Datos → Solver</strong> y configura:</p>
+                    <ul class="text-gray-600 space-y-1 ml-4">
+                        <li>• <strong>Definir objetivo:</strong> B9 (f(x))</li>
+                        <li>• <strong>A valor de:</strong> 0</li>
+                        <li>• <strong>Cambiando celda:</strong> B7 (valor de x)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Paso 3: Ejecutar -->
+            <div class="space-y-4">
+                <h4 class="text-lg font-semibold text-gray-800 flex items-center">
+                    <span class="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3">3</span>
+                    Ejecutar
+                </h4>
+                
+                <div class="pl-9 space-y-3">
+                    <p class="text-gray-700">Haz clic en <strong>Resolver</strong>.</p>
+                    <p class="text-gray-600">Excel ajustará el valor de B7 para que f(x) sea cero. El valor final será una raíz de la función.</p>
+                </div>
+            </div>
+
+            <!-- Nota importante -->
+            <div class="border-l-4 border-orange-400 pl-4">
+                <h4 class="text-lg font-semibold text-gray-800 mb-2">Nota importante</h4>
+                <p class="text-gray-700 mb-2">Solver no puede encontrar ambas raíces al mismo tiempo. Si tu ecuación tiene dos raíces, tienes dos opciones:</p>
+                <div class="text-gray-600 space-y-2">
+                    <p><strong>Opción 1:</strong> Cambia el valor inicial de B7 y ejecuta Solver otra vez.</p>
+                    <p><strong>Opción 2:</strong> Crea una segunda columna (por ejemplo, C7 y C9) con la misma fórmula y ejecuta Solver por separado para cada columna.</p>
+                </div>
+            </div>
+
+            <!-- Imágenes de Solver -->
+            <div class="mt-6">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 max-w-3xl mx-auto">
+                    <div class="relative">
+                        <div class="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl blur opacity-25"></div>
+                        <div class="relative bg-white rounded-xl p-0.5">
+                            <img src="images/solverExcel2.png" alt="Configuración de Solver" class="w-full h-auto rounded-lg">
+                        </div>
+                    </div>
+                    
+                    <div class="relative">
+                        <div class="absolute -inset-0.5 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-xl blur opacity-25"></div>
+                        <div class="relative bg-white rounded-xl p-0.5">
+                            <img src="images/solverExcel1.png" alt="Resultado de Solver" class="w-full h-auto rounded-lg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    `;
 }
 
 
