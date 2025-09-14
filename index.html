@@ -70,6 +70,170 @@
                 radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%),
                 radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
         }
+        
+        /* Estilos para tooltips */
+        .tooltip-container {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .tooltip {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            z-index: 1000;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+            color: white;
+            text-align: center;
+            border-radius: 8px;
+            padding: 0;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            width: 280px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -8px;
+            border-width: 8px;
+            border-style: solid;
+            border-color: #374151 transparent transparent transparent;
+        }
+        
+        .tooltip-content {
+            padding: 12px 16px;
+        }
+        
+        .tooltip-container:hover .tooltip,
+        .tooltip-container.active .tooltip {
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(-50%) translateY(-5px);
+        }
+        
+        /* Mejorar tooltips para dispositivos táctiles */
+        @media (hover: none) and (pointer: coarse) {
+            .tooltip-container {
+                cursor: pointer;
+            }
+            
+            .tooltip {
+                width: 250px;
+                font-size: 0.875rem;
+            }
+            
+            .tooltip-content {
+                padding: 10px 12px;
+            }
+        }
+        
+        /* Animación de pulso para el ícono */
+        .tooltip-container i {
+            transition: all 0.3s ease;
+            animation: pulse-gentle 2s infinite;
+        }
+        
+        @keyframes pulse-gentle {
+            0%, 100% { 
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            50% { 
+                transform: scale(1.05);
+                opacity: 1;
+            }
+        }
+        
+        .tooltip-container:hover i {
+            animation: none;
+            transform: scale(1.1);
+        }
+        
+        /* Mejoras de responsividad general */
+        @media (max-width: 768px) {
+            /* Ajustar espaciado en móviles */
+            .py-16 {
+                padding-top: 3rem;
+                padding-bottom: 3rem;
+            }
+            
+            .py-20 {
+                padding-top: 4rem;
+                padding-bottom: 4rem;
+            }
+            
+            /* Mejorar grid de software en móviles */
+            .grid.md\\:grid-cols-2.lg\\:grid-cols-3 {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            /* Ajustar tooltips en móviles */
+            .tooltip {
+                width: 200px;
+                font-size: 0.8rem;
+            }
+            
+            /* Mejorar botones en móviles */
+            button {
+                min-height: 44px; /* Tamaño mínimo recomendado para touch */
+            }
+            
+            /* Ajustar texto en móviles */
+            .text-5xl {
+                font-size: 2.5rem;
+            }
+            
+            .text-4xl {
+                font-size: 2rem;
+            }
+            
+            .text-3xl {
+                font-size: 1.75rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            /* Ajustes para pantallas muy pequeñas */
+            .px-4 {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            .text-5xl {
+                font-size: 2rem;
+            }
+            
+            .text-4xl {
+                font-size: 1.75rem;
+            }
+            
+            .tooltip {
+                width: 180px;
+                font-size: 0.75rem;
+            }
+            
+            /* Mejorar tabla en móviles */
+            table {
+                font-size: 0.875rem;
+            }
+            
+            table th,
+            table td {
+                padding: 0.75rem 0.5rem;
+            }
+            
+            table th {
+                font-size: 1rem;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -81,6 +245,7 @@
                     <i class="fas fa-square-root-alt text-2xl text-blue-600"></i>
                     <span class="text-xl font-bold text-gray-800">Raíces</span>
                 </div>
+                <!-- Menú desktop -->
                 <div class="hidden md:flex space-x-8">
                     <a href="#inicio" class="nav-link text-gray-600 hover:text-blue-600 transition-colors">Inicio</a>
                     <a href="#concept" class="nav-link text-gray-600 hover:text-blue-600 transition-colors">Teoría</a>
@@ -88,6 +253,22 @@
                     <a href="#software" class="nav-link text-gray-600 hover:text-blue-600 transition-colors">Software</a>
                     <a href="#comparacion" class="nav-link text-gray-600 hover:text-blue-600 transition-colors">Comparación</a>
                 </div>
+                
+                <!-- Botón menú hamburguesa para móviles -->
+                <button id="mobile-menu-button" class="md:hidden text-gray-600 hover:text-blue-600 transition-colors">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Menú móvil desplegable -->
+        <div id="mobile-menu" class="md:hidden bg-white border-t border-gray-200 hidden">
+            <div class="px-4 py-2 space-y-1">
+                <a href="#inicio" class="mobile-nav-link block px-3 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors">Inicio</a>
+                <a href="#concept" class="mobile-nav-link block px-3 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors">Teoría</a>
+                <a href="#aplicaciones" class="mobile-nav-link block px-3 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors">Aplicaciones</a>
+                <a href="#software" class="mobile-nav-link block px-3 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors">Software</a>
+                <a href="#comparacion" class="mobile-nav-link block px-3 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors">Comparación</a>
             </div>
         </div>
     </nav>
@@ -229,7 +410,7 @@
 
 
             <!-- Otras aplicaciones -->
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Rendimiento de sistemas -->
                 <div class="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
                         <div class="flex items-center mb-3">
@@ -313,9 +494,20 @@
                 <p class="text-xl text-gray-600">Herramientas digitales para análisis numérico y resolución de ceros de funciones</p>
             </div>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- GeoGebra -->
-                <div class="fade-in bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+                <div class="fade-in bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all transform hover:scale-105 relative">
+                    <div class="absolute top-3 right-3">
+                        <div class="tooltip-container">
+                            <i class="fas fa-exclamation-circle text-blue-500 hover:text-blue-700 cursor-help text-lg"></i>
+                            <div class="tooltip">
+                                <div class="tooltip-content">
+                                    <h4 class="font-bold text-white mb-2">GeoGebra</h4>
+                                    <p class="text-sm text-blue-100">Software gratuito de matemáticas dinámicas. Ideal para visualizar funciones y encontrar raíces gráficamente. Perfecto para estudiantes y educadores.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="text-center mb-4">
                         <i class="fas fa-chart-line text-4xl text-blue-600 mb-3"></i>
                         <h3 class="text-xl font-bold text-gray-800">GeoGebra</h3>
@@ -330,7 +522,18 @@
                 </div>
 
                 <!-- WolframAlpha -->
-                <div class="fade-in bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+                <div class="fade-in bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all transform hover:scale-105 relative">
+                    <div class="absolute top-3 right-3">
+                        <div class="tooltip-container">
+                            <i class="fas fa-exclamation-circle text-orange-500 hover:text-orange-700 cursor-help text-lg"></i>
+                            <div class="tooltip">
+                                <div class="tooltip-content">
+                                    <h4 class="font-bold text-white mb-2">WolframAlpha</h4>
+                                    <p class="text-sm text-orange-100">Motor de conocimiento computacional. Resuelve ecuaciones complejas instantáneamente. Versión gratuita limitada, versión Pro con más funcionalidades.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="text-center mb-4">
                         <i class="fas fa-search text-4xl text-orange-600 mb-3"></i>
                         <h3 class="text-xl font-bold text-gray-800">WolframAlpha</h3>
@@ -345,7 +548,18 @@
                 </div>
 
                 <!-- Desmos -->
-                <div class="fade-in bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+                <div class="fade-in bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all transform hover:scale-105 relative">
+                    <div class="absolute top-3 right-3">
+                        <div class="tooltip-container">
+                            <i class="fas fa-exclamation-circle text-purple-500 hover:text-purple-700 cursor-help text-lg"></i>
+                            <div class="tooltip">
+                                <div class="tooltip-content">
+                                    <h4 class="font-bold text-white mb-2">Desmos</h4>
+                                    <p class="text-sm text-purple-100">Calculadora gráfica online gratuita. Excelente para visualizar funciones y encontrar intersecciones. Muy intuitivo y fácil de usar.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="text-center mb-4">
                         <i class="fas fa-chart-area text-4xl text-purple-600 mb-3"></i>
                         <h3 class="text-xl font-bold text-gray-800">Desmos</h3>
@@ -360,7 +574,18 @@
                 </div>
 
                 <!-- Excel -->
-                <div class="fade-in bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+                <div class="fade-in bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all transform hover:scale-105 relative">
+                    <div class="absolute top-3 right-3">
+                        <div class="tooltip-container">
+                            <i class="fas fa-exclamation-circle text-green-500 hover:text-green-700 cursor-help text-lg"></i>
+                            <div class="tooltip">
+                                <div class="tooltip-content">
+                                    <h4 class="font-bold text-white mb-2">Excel / Google Sheets</h4>
+                                    <p class="text-sm text-green-100">Herramienta de hojas de cálculo con Solver integrado. Ideal para análisis empresarial y cálculos financieros. Requiere configuración manual pero muy potente.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="text-center mb-4">
                         <i class="fas fa-table text-4xl text-green-600 mb-3"></i>
                         <h3 class="text-xl font-bold text-gray-800">Excel / Google Sheets</h3>
@@ -375,7 +600,18 @@
                 </div>
 
                 <!-- Python -->
-                <div class="fade-in bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+                <div class="fade-in bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all transform hover:scale-105 relative">
+                    <div class="absolute top-3 right-3">
+                        <div class="tooltip-container">
+                            <i class="fas fa-exclamation-circle text-yellow-500 hover:text-yellow-700 cursor-help text-lg"></i>
+                            <div class="tooltip">
+                                <div class="tooltip-content">
+                                    <h4 class="font-bold text-white mb-2">Python</h4>
+                                    <p class="text-sm text-yellow-100">Lenguaje de programación gratuito con librerías científicas (NumPy, SciPy). Muy flexible para análisis numérico avanzado. Requiere conocimientos básicos de programación.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="text-center mb-4">
                         <i class="fab fa-python text-4xl text-yellow-600 mb-3"></i>
                         <h3 class="text-xl font-bold text-gray-800">Python</h3>
@@ -390,7 +626,18 @@
                 </div>
 
                 <!-- MATLAB -->
-                <div class="fade-in bg-gradient-to-br from-red-50 to-red-100 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+                <div class="fade-in bg-gradient-to-br from-red-50 to-red-100 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all transform hover:scale-105 relative">
+                    <div class="absolute top-3 right-3">
+                        <div class="tooltip-container">
+                            <i class="fas fa-exclamation-circle text-red-500 hover:text-red-700 cursor-help text-lg"></i>
+                            <div class="tooltip">
+                                <div class="tooltip-content">
+                                    <h4 class="font-bold text-white mb-2">MATLAB / Octave</h4>
+                                    <p class="text-sm text-red-100">MATLAB es software comercial para análisis numérico. Octave es la versión gratuita open-source. Ambos excelentes para ingeniería y ciencias. Curva de aprendizaje moderada.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="text-center mb-4">
                         <i class="fas fa-cube text-4xl text-red-600 mb-3"></i>
                         <h3 class="text-xl font-bold text-gray-800">MATLAB / Octave</h3>
@@ -416,8 +663,8 @@
                 <p class="text-xl text-gray-600">Análisis de ventajas y desventajas de cada enfoque</p>
             </div>
 
-            <div class="overflow-x-auto">
-                <table class="w-full bg-white rounded-xl shadow-lg overflow-hidden">
+            <div class="overflow-x-auto -mx-4 sm:mx-0">
+                <table class="w-full bg-white rounded-xl shadow-lg overflow-hidden min-w-full">
                     <thead class="bg-gray-50">
                         <tr>
                             <th class="px-6 py-4 text-left text-lg font-bold text-gray-800">Método</th>

@@ -538,6 +538,25 @@ function initializeApp() {
         console.error('Error configurando navegación:', error);
     }
     
+    // Configurar menú móvil
+    try {
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        if (mobileMenuButton) {
+            mobileMenuButton.addEventListener('click', toggleMobileMenu);
+            console.log('Menú móvil configurado');
+        }
+    } catch (error) {
+        console.error('Error configurando menú móvil:', error);
+    }
+    
+    // Configurar tooltips para dispositivos táctiles
+    try {
+        setupTooltipsForTouch();
+        console.log('Tooltips táctiles configurados');
+    } catch (error) {
+        console.error('Error configurando tooltips táctiles:', error);
+    }
+    
     // Event listeners para scroll
     window.addEventListener('scroll', function() {
         handleScrollAnimations();
@@ -573,14 +592,87 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Función para manejar enlaces de navegación
 function setupNavigationLinks() {
+    // Enlaces del menú desktop
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
             const targetId = this.getAttribute('href').substring(1);
             scrollToSection(targetId);
-            });
+            closeMobileMenu(); // Cerrar menú móvil si está abierto
         });
+    });
+    
+    // Enlaces del menú móvil
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            scrollToSection(targetId);
+            closeMobileMenu();
+        });
+    });
+}
+
+// Funciones para el menú móvil
+function toggleMobileMenu() {
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuButton = document.getElementById('mobile-menu-button');
+    const icon = menuButton.querySelector('i');
+    
+    if (mobileMenu.classList.contains('hidden')) {
+        mobileMenu.classList.remove('hidden');
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+    } else {
+        closeMobileMenu();
     }
+}
+
+function closeMobileMenu() {
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuButton = document.getElementById('mobile-menu-button');
+    const icon = menuButton.querySelector('i');
+    
+    mobileMenu.classList.add('hidden');
+    icon.classList.remove('fa-times');
+    icon.classList.add('fa-bars');
+}
+
+// Función para manejar tooltips en dispositivos táctiles
+function setupTooltipsForTouch() {
+    const tooltipContainers = document.querySelectorAll('.tooltip-container');
+    
+    tooltipContainers.forEach(container => {
+        const icon = container.querySelector('i');
+        
+        // Detectar si es dispositivo táctil
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        
+        if (isTouchDevice) {
+            icon.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                // Cerrar otros tooltips abiertos
+                tooltipContainers.forEach(otherContainer => {
+                    if (otherContainer !== container) {
+                        otherContainer.classList.remove('active');
+                    }
+                });
+                
+                // Toggle del tooltip actual
+                container.classList.toggle('active');
+            });
+            
+            // Cerrar tooltip al hacer clic fuera
+            document.addEventListener('click', function(e) {
+                if (!container.contains(e.target)) {
+                    container.classList.remove('active');
+                }
+            });
+        }
+    });
+}
 
 // Funciones para el modal de Python
 function openPythonModal() {

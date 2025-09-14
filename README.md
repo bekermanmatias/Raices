@@ -2,13 +2,13 @@
 
 Una aplicación web educativa para explicar el cálculo de raíces de funciones utilizando software moderno.
 
-## 📋 Información del Proyecto
+## Información del Proyecto
 
 - **Materia:** Análisis Numérico S33 2025
 - **Grupo:** 9
 - **Tema:** Raíces de Funciones
 
-## 🎯 Descripción
+## Descripción
 
 Esta aplicación web proporciona una guía completa para entender y calcular raíces de funciones, desde métodos manuales hasta herramientas de software moderno. Incluye:
 
@@ -17,7 +17,7 @@ Esta aplicación web proporciona una guía completa para entender y calcular ra�
 - **Software moderno** - Python, Excel, WolframAlpha, MATLAB
 - **Comparación de métodos** - Ventajas y desventajas de cada herramienta
 
-## 🛠️ Tecnologías Utilizadas
+## Tecnologías Utilizadas
 
 ### Frontend
 - **HTML5** - Estructura semántica
@@ -37,14 +37,14 @@ Esta aplicación web proporciona una guía completa para entender y calcular ra�
 - **Gráficos dinámicos** - Visualización de funciones
 - **Navegación fluida** - Scroll suave entre secciones
 
-## 🚀 Uso
+## Uso
 
 1. Abrir `index.html` en un navegador web
 2. Navegar por las diferentes secciones usando el menú superior
 3. Explorar los ejemplos interactivos y modales
 4. Probar los enlaces a software externo (WolframAlpha, etc.)
 
-## 📁 Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
 Raices/
@@ -56,6 +56,6 @@ Raices/
 └── README.md           # Este archivo
 ```
 
-## 👥 Grupo 9 - Análisis Numérico S33 2025
+## Grupo 9 - Análisis Numérico S33 2025
 
 Desarrollado como proyecto educativo para la materia de Análisis Numérico.
