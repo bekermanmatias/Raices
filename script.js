@@ -971,6 +971,9 @@ function openPythonWindow() {
         // Prevenir scroll del body
         document.body.style.overflow = 'hidden';
         
+        // Agregar entrada al historial para poder cerrar con botón atrás
+        history.pushState({ modal: 'python' }, '', window.location.href);
+        
         // Scroll al inicio del modal
         pythonModal.scrollTop = 0;
     }
@@ -990,6 +993,26 @@ function closePythonModal() {
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         closePythonModal();
+        closeMatlabModal();
+        closeExcelModal();
+    }
+});
+
+// Manejar el botón atrás del navegador para cerrar modales
+window.addEventListener('popstate', function(e) {
+    // Verificar si hay un modal abierto y cerrarlo
+    const pythonModal = document.getElementById('pythonModal');
+    const matlabModal = document.getElementById('matlabModal');
+    const excelModal = document.getElementById('excelModal');
+    
+    if (pythonModal && !pythonModal.classList.contains('hidden')) {
+        closePythonModal();
+    }
+    if (matlabModal && !matlabModal.classList.contains('hidden')) {
+        closeMatlabModal();
+    }
+    if (excelModal && !excelModal.classList.contains('hidden')) {
+        closeExcelModal();
     }
 });
 
@@ -1251,7 +1274,9 @@ function openMatlabModal() {
     const modal = document.getElementById('matlabModal');
     modal.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
-    window.scrollTo(0, 0);
+    
+    // Agregar entrada al historial para poder cerrar con botón atrás
+    history.pushState({ modal: 'matlab' }, '', window.location.href);
     
     // Cargar contenido siempre
     loadMatlabContent();
@@ -1262,12 +1287,6 @@ function closeMatlabModal() {
     const modal = document.getElementById('matlabModal');
     modal.classList.add('hidden');
     document.body.style.overflow = 'auto';
-    
-    // Regresar a la sección de softwares
-    const softwareSection = document.getElementById('software');
-    if (softwareSection) {
-        softwareSection.scrollIntoView({ behavior: 'smooth' });
-    }
 }
 
 // Función para cargar el contenido de MATLAB dinámicamente
@@ -1692,7 +1711,9 @@ function openExcelModal() {
     const modal = document.getElementById('excelModal');
     modal.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
-    window.scrollTo(0, 0);
+    
+    // Agregar entrada al historial para poder cerrar con botón atrás
+    history.pushState({ modal: 'excel' }, '', window.location.href);
     
     // Cargar contenido siempre
     loadExcelContent();
@@ -1703,12 +1724,6 @@ function closeExcelModal() {
     const modal = document.getElementById('excelModal');
     modal.classList.add('hidden');
     document.body.style.overflow = 'auto';
-    
-    // Regresar a la sección de softwares
-    const softwareSection = document.getElementById('software');
-    if (softwareSection) {
-        softwareSection.scrollIntoView({ behavior: 'smooth' });
-    }
 }
 
 // Función para cargar el contenido de Excel/Google Sheets dinámicamente
