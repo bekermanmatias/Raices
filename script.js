@@ -186,6 +186,251 @@ function createManualGraph() {
     ctx.fillText('x=3', padding + (3 + 1) * (graphWidth / 7), height / 2 + 20);
 }
 
+// Gráfico pequeño para el ejemplo de polinomio 2x² - 8x + 6 = 0
+function createPolynomialExampleGraph() {
+    const canvas = document.getElementById('polynomialExampleGraph');
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    const width = canvas.width;
+    const height = canvas.height;
+    
+    // Limpiar canvas
+    ctx.clearRect(0, 0, width, height);
+    
+    // Configurar el gráfico
+    const padding = 30;
+    const graphWidth = width - 2 * padding;
+    const graphHeight = height - 2 * padding;
+    
+    // Configuración del rango: x de -1 a 5, y de -2 a 10
+    const xMin = -1, xMax = 5;
+    const yMin = -2, yMax = 10;
+    
+    // Calcular posición del origen (0,0)
+    const originX = padding + (0 - xMin) * graphWidth / (xMax - xMin);
+    const originY = height - padding - (0 - yMin) * graphHeight / (yMax - yMin);
+    
+    // Dibujar ejes
+    ctx.strokeStyle = '#e5e7eb';
+    ctx.lineWidth = 1;
+    
+    // Eje X (horizontal, pasa por y=0)
+    ctx.beginPath();
+    ctx.moveTo(padding, originY);
+    ctx.lineTo(width - padding, originY);
+    ctx.stroke();
+    
+    // Eje Y (vertical, pasa por x=0)
+    ctx.beginPath();
+    ctx.moveTo(originX, padding);
+    ctx.lineTo(originX, height - padding);
+    ctx.stroke();
+    
+    // Etiquetas de ejes
+    ctx.fillStyle = '#6b7280';
+    ctx.font = '10px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText('x', width - 15, originY + 15);
+    ctx.textAlign = 'center';
+    ctx.fillText('y', originX + 10, 15);
+    
+    // Dibujar marcas en los ejes
+    ctx.fillStyle = '#9ca3af';
+    ctx.font = '8px Arial';
+    ctx.strokeStyle = '#e5e7eb';
+    
+    // Marcas en eje X
+    for (let i = xMin; i <= xMax; i++) {
+        if (i !== 0) {
+            const x = padding + (i - xMin) * graphWidth / (xMax - xMin);
+            ctx.beginPath();
+            ctx.moveTo(x, originY - 3);
+            ctx.lineTo(x, originY + 3);
+            ctx.stroke();
+            ctx.textAlign = 'center';
+            ctx.fillText(i.toString(), x, originY + 15);
+        }
+    }
+    
+    // Dibujar parábola 2x² - 8x + 6
+    ctx.strokeStyle = '#059669'; // Verde
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    
+    let firstPoint = true;
+    for (let x = xMin; x <= xMax; x += 0.05) {
+        const y = 2 * x * x - 8 * x + 6;
+        const pixelX = padding + (x - xMin) * graphWidth / (xMax - xMin);
+        const pixelY = height - padding - (y - yMin) * graphHeight / (yMax - yMin);
+        
+        if (firstPoint) {
+            ctx.moveTo(pixelX, pixelY);
+            firstPoint = false;
+        } else {
+            ctx.lineTo(pixelX, pixelY);
+        }
+    }
+    ctx.stroke();
+    
+    // Marcar raíces con círculos rojos (en x=1 y x=3)
+    ctx.fillStyle = '#dc2626';
+    
+    // Raíz en x=1
+    const x1Pixel = padding + (1 - xMin) * graphWidth / (xMax - xMin);
+    ctx.beginPath();
+    ctx.arc(x1Pixel, originY, 4, 0, 2 * Math.PI);
+    ctx.fill();
+    
+    // Raíz en x=3
+    const x3Pixel = padding + (3 - xMin) * graphWidth / (xMax - xMin);
+    ctx.beginPath();
+    ctx.arc(x3Pixel, originY, 4, 0, 2 * Math.PI);
+    ctx.fill();
+    
+    // Agregar etiquetas de las raíces
+    ctx.fillStyle = '#374151';
+    ctx.font = '9px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText('x=1', x1Pixel, originY + 18);
+    ctx.fillText('x=3', x3Pixel, originY + 18);
+}
+
+// Gráfico pequeño simplificado para el ejemplo de ecuación implícita tan(x) - x = 0
+function createImplicitExampleGraph() {
+    const canvas = document.getElementById('implicitExampleGraph');
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    const width = canvas.width;
+    const height = canvas.height;
+    
+    // Limpiar canvas
+    ctx.clearRect(0, 0, width, height);
+    
+    // Configurar el gráfico - rango más pequeño y centrado
+    const padding = 30;
+    const graphWidth = width - 2 * padding;
+    const graphHeight = height - 2 * padding;
+    
+    // Configuración del rango simplificado: x de -2 a 2, y de -3 a 3
+    const xMin = -2, xMax = 2;
+    const yMin = -3, yMax = 3;
+    
+    // Calcular posición del origen (0,0)
+    const originX = padding + (0 - xMin) * graphWidth / (xMax - xMin);
+    const originY = height - padding - (0 - yMin) * graphHeight / (yMax - yMin);
+    
+    // Dibujar ejes
+    ctx.strokeStyle = '#e5e7eb';
+    ctx.lineWidth = 1;
+    
+    // Eje X (horizontal, pasa por y=0)
+    ctx.beginPath();
+    ctx.moveTo(padding, originY);
+    ctx.lineTo(width - padding, originY);
+    ctx.stroke();
+    
+    // Eje Y (vertical, pasa por x=0)
+    ctx.beginPath();
+    ctx.moveTo(originX, padding);
+    ctx.lineTo(originX, height - padding);
+    ctx.stroke();
+    
+    // Etiquetas de ejes
+    ctx.fillStyle = '#6b7280';
+    ctx.font = '10px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText('x', width - 15, originY + 15);
+    ctx.textAlign = 'center';
+    ctx.fillText('y', originX + 10, 15);
+    
+    // Dibujar marcas en los ejes (simplificadas)
+    ctx.fillStyle = '#9ca3af';
+    ctx.font = '8px Arial';
+    ctx.strokeStyle = '#e5e7eb';
+    
+    // Marcas en eje X
+    for (let i = -1; i <= 1; i++) {
+        if (i !== 0) {
+            const x = padding + (i - xMin) * graphWidth / (xMax - xMin);
+            ctx.beginPath();
+            ctx.moveTo(x, originY - 3);
+            ctx.lineTo(x, originY + 3);
+            ctx.stroke();
+            ctx.textAlign = 'center';
+            ctx.fillText(i.toString(), x, originY + 15);
+        }
+    }
+    
+    // Dibujar y = x (línea azul recta)
+    ctx.strokeStyle = '#3b82f6'; // Azul
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    
+    const startX = padding + (xMin - xMin) * graphWidth / (xMax - xMin);
+    const startY = height - padding - (xMin - yMin) * graphHeight / (yMax - yMin);
+    const endX = padding + (xMax - xMin) * graphWidth / (xMax - xMin);
+    const endY = height - padding - (xMax - yMin) * graphHeight / (yMax - yMin);
+    
+    ctx.moveTo(startX, startY);
+    ctx.lineTo(endX, endY);
+    ctx.stroke();
+    
+    // Dibujar y = tan(x) simplificado (solo el segmento central)
+    ctx.strokeStyle = '#f97316'; // Naranja
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    
+    let firstPoint = true;
+    for (let x = -1.4; x <= 1.4; x += 0.05) {
+        const y = Math.tan(x);
+        
+        // Limitar y para que esté en el rango visible
+        if (y > yMax || y < yMin) continue;
+        
+        const pixelX = padding + (x - xMin) * graphWidth / (xMax - xMin);
+        const pixelY = height - padding - (y - yMin) * graphHeight / (yMax - yMin);
+        
+        if (firstPoint) {
+            ctx.moveTo(pixelX, pixelY);
+            firstPoint = false;
+        } else {
+            ctx.lineTo(pixelX, pixelY);
+        }
+    }
+    ctx.stroke();
+    
+    // Marcar solo la raíz principal (x = 0)
+    ctx.fillStyle = '#dc2626';
+    ctx.beginPath();
+    ctx.arc(originX, originY, 4, 0, 2 * Math.PI);
+    ctx.fill();
+    
+    // Etiqueta de la raíz
+    ctx.fillStyle = '#374151';
+    ctx.font = '9px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText('x=0', originX, originY + 18);
+    
+    // Leyenda simplificada
+    ctx.fillStyle = '#374151';
+    ctx.font = '8px Arial';
+    ctx.textAlign = 'left';
+    
+    // Leyenda para y = x
+    ctx.fillStyle = '#3b82f6';
+    ctx.fillRect(padding + 5, padding + 5, 12, 2);
+    ctx.fillStyle = '#374151';
+    ctx.fillText('y = x', padding + 20, padding + 9);
+    
+    // Leyenda para y = tan(x)
+    ctx.fillStyle = '#f97316';
+    ctx.fillRect(padding + 5, padding + 18, 12, 2);
+    ctx.fillStyle = '#374151';
+    ctx.fillText('y = tan(x)', padding + 20, padding + 22);
+}
+
 // Demo interactiva con Chart.js y Math.js
 let demoChart = null;
 
@@ -512,6 +757,20 @@ function initializeApp() {
         console.log('Gráfico manual creado');
     } catch (error) {
         console.error('Error creando gráfico manual:', error);
+    }
+    
+    try {
+        createPolynomialExampleGraph();
+        console.log('Gráfico de ejemplo de polinomio creado');
+    } catch (error) {
+        console.error('Error creando gráfico de ejemplo de polinomio:', error);
+    }
+    
+    try {
+        createImplicitExampleGraph();
+        console.log('Gráfico de ejemplo de ecuación implícita creado');
+    } catch (error) {
+        console.error('Error creando gráfico de ejemplo de ecuación implícita:', error);
     }
     
     // Configurar demo inicial
