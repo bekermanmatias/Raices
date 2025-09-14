@@ -336,11 +336,72 @@
                     </div>
                 </div>
                 
-                <p class="text-gray-700 mb-6 text-center text-lg">
-                    Existen principalmente <strong>dos tipos de raíces</strong> según el tipo de función:
-                </p>
+                
             </div>
 
+            <!-- Definición de Continuidad -->
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold text-gray-800 mb-6">¿Qué significa "función continua"?</h3>
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
+                    <p class="text-gray-800 text-lg leading-relaxed mb-4">
+                        <strong>Definición de continuidad:</strong> Una función se dice <strong>continua en un intervalo "I"</strong> dado si es continua en todo punto "a" del interior de este intervalo.
+                    </p>
+                    <p class="text-gray-800 text-lg leading-relaxed mb-4">
+                        Se dice que una función <strong>f es continua en el número "a"</strong> si y sólo si se cumplen las <strong>tres condiciones siguientes:</strong>
+                    </p>
+                    
+                    <div class="grid md:grid-cols-3 gap-4 mt-6">
+                        <!-- Condición 1 -->
+                        <div class="bg-white rounded-lg p-4 border border-blue-300">
+                            <div class="text-center mb-3">
+                                <span class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-lg font-bold mx-auto">i</span>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-lg font-semibold text-gray-800 mb-2">$$ f(a)\text{ existe}$$</p>
+                                <p class="text-sm text-gray-600">La función está definida en el punto a</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Condición 2 -->
+                        <div class="bg-white rounded-lg p-4 border border-blue-300">
+                            <div class="text-center mb-3">
+                                <span class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-lg font-bold mx-auto">ii</span>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-lg font-semibold text-gray-800 mb-2">$$\lim_{x \to a} f(x) \text{ existe}$$</p>
+                                <p class="text-sm text-gray-600">El límite existe cuando x se acerca a a</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Condición 3 -->
+                        <div class="bg-white rounded-lg p-4 border border-blue-300">
+                            <div class="text-center mb-3">
+                                <span class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-lg font-bold mx-auto">iii</span>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-lg font-semibold text-gray-800 mb-2">$$\lim_{x \to a} f(x) = f(a)$$</p>
+                                <p class="text-sm text-gray-600">El límite es igual al valor de la función</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-green-50 border-l-4 border-green-500 rounded-lg p-4">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-lightbulb text-green-600 mr-2"></i>
+                        <h4 class="font-semibold text-green-800">¿Por qué es importante la continuidad?</h4>
+                    </div>
+                    <p class="text-green-700 text-sm">
+                        Las funciones continuas garantizan que no hay "saltos" o "huecos" en la gráfica. 
+                        Esto es fundamental para encontrar raíces, ya que si una función continua cambia de signo 
+                        en un intervalo, debe cruzar el eje X al menos una vez.
+                    </p>
+                </div>
+            </div>
+
+            <p class="text-gray-700 mb-6 text-center text-lg">
+                Existen principalmente <strong>dos tipos de raíces</strong> según el tipo de función:
+            </p>
             <!-- Tipos de raíces -->
             <div class="grid lg:grid-cols-2 gap-8 mb-12">
                 <!-- Tipo A: Polinomios -->
@@ -394,7 +455,7 @@
 
             <!-- Ejemplos detallados -->
             <div class="mb-12">
-                <h3 class="text-2xl font-semibold text-gray-800 mb-6 text-center">Ejemplos Detallados</h3>
+                <h3 class="text-2xl font-semibold text-gray-800 mb-6 text-center">Ejemplos</h3>
                 
                 <!-- Ejemplo de Polinomio -->
                 <div class="mb-8">
@@ -405,6 +466,7 @@
                         </div>
                         
                         <div class="grid md:grid-cols-2 gap-6">
+                            <!-- Cálculo a la izquierda -->
                             <div>
                                 <h5 class="font-semibold text-gray-800 mb-3">Ecuación cuadrática:</h5>
                                 <div class="bg-white rounded-lg p-4 mb-4 text-center">
@@ -418,30 +480,23 @@
                                     </div>
                                     <p><strong>Resultado:</strong> x₁ = 3, x₂ = 1</p>
                                 </div>
+                                <div class="bg-gray-100 rounded-lg p-3 text-xs mt-4">
+                                    <p><strong>Verificación:</strong></p>
+                                    <p>f(3) = 2(3)² - 8(3) + 6 = 0 ✓</p>
+                                    <p>f(1) = 2(1)² - 8(1) + 6 = 0 ✓</p>
+                                </div>
                             </div>
+                            
+                            <!-- Gráfico a la derecha -->
                             <div>
-                                <h5 class="font-semibold text-gray-800 mb-3">Verificación:</h5>
-                                <div class="bg-gray-100 rounded-lg p-4 text-sm space-y-2">
-                                    <p>Para x = 3:</p>
-                                    <p>f(3) = 2(3)² - 8(3) + 6 = 18 - 24 + 6 = 0 ✓</p>
-                                    <p>Para x = 1:</p>
-                                    <p>f(1) = 2(1)² - 8(1) + 6 = 2 - 8 + 6 = 0 ✓</p>
+                                <h5 class="font-semibold text-gray-800 mb-3 text-center">Visualización</h5>
+                                <div class="flex justify-center">
+                                    <canvas id="polynomialExampleGraph" width="300" height="220" class="border rounded-lg bg-white"></canvas>
                                 </div>
-                                <div class="mt-4 text-xs text-gray-600">
-                                    <p><strong>Características:</strong> Este polinomio de grado 2 tiene exactamente 2 raíces reales.</p>
-                                </div>
+                                <p class="text-center text-xs text-gray-600 mt-2">
+                                    La parábola intersecta el eje X en x = 1 y x = 3
+                                </p>
                             </div>
-                        </div>
-                        
-                        <!-- Gráfico pequeño -->
-                        <div class="mt-6">
-                            <h5 class="font-semibold text-gray-800 mb-3 text-center">Visualización Gráfica</h5>
-                            <div class="flex justify-center">
-                                <canvas id="polynomialExampleGraph" width="350" height="250" class="border rounded-lg bg-white"></canvas>
-                            </div>
-                            <p class="text-center text-xs text-gray-600 mt-2">
-                                La parábola f(x) = 2x² - 8x + 6 intersecta el eje X en x = 1 y x = 3
-                            </p>
                         </div>
                     </div>
                 </div>
@@ -455,6 +510,7 @@
                         </div>
                         
                         <div class="grid md:grid-cols-2 gap-6">
+                            <!-- Cálculo a la izquierda -->
                             <div>
                                 <h5 class="font-semibold text-gray-800 mb-3">Ecuación trascendente:</h5>
                                 <div class="bg-white rounded-lg p-4 mb-4 text-center">
@@ -471,34 +527,23 @@
                                         <li>x₄ ≈ ±10.904</li>
                                     </ul>
                                 </div>
-                            </div>
-                            <div>
-                                <h5 class="font-semibold text-gray-800 mb-3">Análisis gráfico:</h5>
-                                <div class="bg-gray-100 rounded-lg p-4 text-sm space-y-2">
-                                    <p><strong>Interpretación:</strong> Las raíces son los puntos donde se intersectan:</p>
-                                    <ul class="list-disc list-inside ml-2 space-y-1">
-                                        <li>y = tan(x)</li>
-                                        <li>y = x</li>
-                                    </ul>
-                                    <p class="mt-3"><strong>Características especiales:</strong></p>
-                                    <ul class="list-disc list-inside ml-2 space-y-1">
-                                        <li>Infinitas raíces</li>
-                                        <li>Simétricas respecto al origen</li>
-                                        <li>Se acercan a las asíntotas de tan(x)</li>
-                                    </ul>
+                                <div class="bg-gray-100 rounded-lg p-3 text-xs mt-4">
+                                    <p><strong>Características:</strong></p>
+                                    <p>• Infinitas raíces simétricas</p>
+                                    <p>• Se intersectan y = tan(x) y y = x</p>
                                 </div>
                             </div>
-                        </div>
-                        
-                        <!-- Gráfico pequeño para ecuación implícita -->
-                        <div class="mt-6">
-                            <h5 class="font-semibold text-gray-800 mb-3 text-center">Visualización Gráfica</h5>
-                            <div class="flex justify-center">
-                                <canvas id="implicitExampleGraph" width="350" height="250" class="border rounded-lg bg-white"></canvas>
+                            
+                            <!-- Gráfico a la derecha -->
+                            <div>
+                                <h5 class="font-semibold text-gray-800 mb-3 text-center">Visualización</h5>
+                                <div class="flex justify-center">
+                                    <canvas id="implicitExampleGraph" width="300" height="220" class="border rounded-lg bg-white"></canvas>
+                                </div>
+                                <p class="text-center text-xs text-gray-600 mt-2">
+                                    Intersección principal en x = 0
+                                </p>
                             </div>
-                            <p class="text-center text-xs text-gray-600 mt-2">
-                                La intersección principal en x = 0 muestra una raíz de tan(x) - x = 0
-                            </p>
                         </div>
                     </div>
                 </div>
@@ -974,7 +1019,7 @@
                             </div>
                         </div>
                         <div class="flex items-center space-x-3">
-                            <a href="https://frlputneduar-my.sharepoint.com/:x:/g/personal/mraubekerman_alu_frlp_utn_edu_ar/EXiNBm69zkBDhO3eJVFM4YgBPkmk5UJyfFbXyQ5e7_PTUg?e=zFfNWd" target="_blank" class="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg transition-colors">
+                            <a href="https://frlputneduar-my.sharepoint.com/:x:/g/personal/mraubekerman_alu_frlp_utn_edu_ar/EXiNBm69zkBDhO3eJVFM4YgBPkmk5UJyfFbXyQ5e7_PTUg?e=zFfNWd" target="_blank" class="bg-white text-green-600 hover:bg-white/90 px-4 py-2 rounded-lg transition-colors font-semibold shadow-md">
                                 <i class="fas fa-external-link-alt mr-2"></i>Ver plantilla
                             </a>
                             <button onclick="closeExcelModal()" class="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg transition-colors">

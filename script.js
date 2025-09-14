@@ -191,6 +191,10 @@ function createPolynomialExampleGraph() {
     const canvas = document.getElementById('polynomialExampleGraph');
     if (!canvas) return;
     
+    // Ajustar tamaño si es necesario
+    canvas.width = 300;
+    canvas.height = 220;
+    
     const ctx = canvas.getContext('2d');
     const width = canvas.width;
     const height = canvas.height;
@@ -300,6 +304,10 @@ function createPolynomialExampleGraph() {
 function createImplicitExampleGraph() {
     const canvas = document.getElementById('implicitExampleGraph');
     if (!canvas) return;
+    
+    // Ajustar tamaño si es necesario
+    canvas.width = 300;
+    canvas.height = 220;
     
     const ctx = canvas.getContext('2d');
     const width = canvas.width;
@@ -1332,14 +1340,6 @@ disp(raiz);</code></pre>
                     Experimenta con código MATLAB/Octave para encontrar raíces. Ambos lenguajes usan la misma sintaxis.
                 </p>
                 
-                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                    <h4 class="font-semibold text-blue-800 mb-2">💡 ¿MATLAB vs Octave?</h4>
-                    <p class="text-blue-700 text-sm">
-                        <strong>MATLAB:</strong> Software comercial de MathWorks<br>
-                        <strong>Octave:</strong> Versión open source gratuita<br>
-                        <strong>Sintaxis:</strong> Prácticamente idéntica para operaciones básicas
-                    </p>
-                </div>
                 
                 <div class="space-y-4">
                     <div class="grid md:grid-cols-2 gap-6">
