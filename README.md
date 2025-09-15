@@ -10,11 +10,10 @@ Una aplicación web educativa para explicar el cálculo de raíces de funciones 
 
 ## Descripción
 
-Esta aplicación web proporciona una guía completa para entender y calcular raíces de funciones, desde métodos manuales hasta herramientas de software moderno. Incluye:
+Esta aplicación web proporciona una guía para entender y calcular raíces de funciones usando softwares. Incluye:
 
 - **Teoría básica** - Conceptos fundamentales y fórmula cuadrática
-- **Aplicaciones prácticas** - Casos de uso en Ingeniería en Sistemas
-- **Software moderno** - Python, Excel, WolframAlpha, MATLAB
+- **Software moderno** - Python, Excel, WolframAlpha, MATLAB, GeoGebra, Demons
 - **Comparación de métodos** - Ventajas y desventajas de cada herramienta
 
 ## Tecnologías Utilizadas
@@ -35,7 +34,6 @@ Esta aplicación web proporciona una guía completa para entender y calcular ra�
 - **Diseño responsivo** - Compatible con dispositivos móviles
 - **Modales interactivos** - Ejemplos de código y plantillas
 - **Gráficos dinámicos** - Visualización de funciones
-- **Navegación fluida** - Scroll suave entre secciones
 
 ## Uso
 
@@ -44,18 +42,5 @@ Esta aplicación web proporciona una guía completa para entender y calcular ra�
 3. Explorar los ejemplos interactivos y modales
 4. Probar los enlaces a software externo (WolframAlpha, etc.)
 
-## Estructura del Proyecto
-
-```
-Raices/
-├── index.html          # Página principal
-├── script.js           # Lógica JavaScript
-├── images/             # Imágenes del proyecto
-│   ├── solverExcel1.png
-│   └── solverExcel2.png
-└── README.md           # Este archivo
-```
 
 ## Grupo 9 - Análisis Numérico S33 2025
-
-Desarrollado como proyecto educativo para la materia de Análisis Numérico.
