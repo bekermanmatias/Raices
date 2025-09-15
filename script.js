@@ -1735,6 +1735,12 @@ function loadExcelContent() {
         <div class="space-y-8">
             
 
+            <!-- Caso para Función Cuadrática -->
+            <div class="mb-6">
+                <h3 class="text-2xl font-bold text-gray-800 mb-2">Caso para Función Cuadrática</h3>
+                <p class="text-gray-600">Ejemplo práctico usando f(x) = x² - 5x + 6 = 0</p>
+            </div>
+
             <!-- Paso 1: Preparar la función -->
             <div class="space-y-4">
                 <h4 class="text-lg font-semibold text-gray-800 flex items-center">
