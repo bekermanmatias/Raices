@@ -1060,11 +1060,11 @@ function loadPythonContent() {
             
             <!-- Resumen de Python -->
             <div class="bg-white rounded-xl shadow-lg p-6">
-                <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center projector-optimized">
                     <i class="fas fa-info-circle text-blue-600 mr-3"></i>
                     Python para Cálculo de Raíces
                 </h3>
-                <p class="text-gray-700 leading-relaxed mb-4">
+                <p class="text-gray-700 leading-relaxed mb-4 classroom-text">
                     Python es una excelente herramienta para encontrar raíces de funciones. Aquí tienes un resumen 
                     de los métodos más básicos y útiles.
                 </p>
@@ -1072,11 +1072,11 @@ function loadPythonContent() {
                 <div class="grid md:grid-cols-2 gap-6">
                     <!-- Método 1: NumPy -->
                     <div class="bg-green-50 border border-green-200 rounded-lg p-4">
-                        <h4 class="font-semibold text-green-800 mb-2 flex items-center">
+                        <h4 class="font-semibold text-green-800 mb-2 flex items-center projector-optimized">
                             <i class="fas fa-calculator text-green-600 mr-2"></i>
                             NumPy (Para polinomios)
                         </h4>
-                        <p class="text-green-700 text-sm mb-3">El método más simple para polinomios.</p>
+                        <p class="text-green-700 text-sm mb-3 classroom-text">El método más simple para polinomios.</p>
                         <div class="bg-gray-900 rounded p-2 overflow-x-auto">
                             <pre class="text-green-400 text-xs"><code>import numpy as np
 coeficientes = [1, -5, 6]
@@ -1087,11 +1087,11 @@ print("Raíces:", raices)</code></pre>
                     
                     <!-- Método 2: SciPy -->
                     <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                        <h4 class="font-semibold text-blue-800 mb-2 flex items-center">
+                        <h4 class="font-semibold text-blue-800 mb-2 flex items-center projector-optimized">
                             <i class="fas fa-flask text-blue-600 mr-2"></i>
                             SciPy (Para cualquier función)
                         </h4>
-                        <p class="text-blue-700 text-sm mb-3">Método más flexible y preciso.</p>
+                        <p class="text-blue-700 text-sm mb-3 classroom-text">Método más flexible y preciso.</p>
                         <div class="bg-gray-900 rounded p-2 overflow-x-auto">
                             <pre class="text-green-400 text-xs"><code>from scipy.optimize import fsolve
 def ecuacion(x):
@@ -1112,11 +1112,11 @@ print("Raíz:", raiz[0])</code></pre>
 
             <!-- Consola Python -->
             <div class="bg-white rounded-xl shadow-lg p-6">
-                <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center projector-optimized">
                     <i class="fas fa-terminal text-green-600 mr-3"></i>
                      Consola Python
                 </h3>
-                <p class="text-gray-600 mb-4">
+                <p class="text-gray-600 mb-4 classroom-text">
                     Escribe código Python simple y ve los resultados.
                 </p>
                 
@@ -1299,11 +1299,11 @@ function loadMatlabContent() {
             
             <!-- Resumen de MATLAB/Octave -->
             <div class="bg-white rounded-xl shadow-lg p-6">
-                <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center projector-optimized">
                     <i class="fas fa-info-circle text-red-600 mr-3"></i>
                     MATLAB/Octave para Cálculo de Raíces
                 </h3>
-                <p class="text-gray-700 leading-relaxed mb-4">
+                <p class="text-gray-700 leading-relaxed mb-4 classroom-text">
                     MATLAB y Octave son herramientas poderosas para encontrar raíces de funciones. 
                     Aquí tienes un resumen de los métodos más útiles.
                 </p>
@@ -1311,11 +1311,11 @@ function loadMatlabContent() {
                 <div class="grid md:grid-cols-2 gap-6">
                     <!-- Método 1: roots() -->
                     <div class="bg-red-50 border border-red-200 rounded-lg p-4">
-                        <h4 class="font-semibold text-red-800 mb-2 flex items-center">
+                        <h4 class="font-semibold text-red-800 mb-2 flex items-center projector-optimized">
                             <i class="fas fa-calculator text-red-600 mr-2"></i>
                             roots() (Para polinomios)
                         </h4>
-                        <p class="text-red-700 text-sm mb-3">El método más directo para polinomios.</p>
+                        <p class="text-red-700 text-sm mb-3 classroom-text">El método más directo para polinomios.</p>
                         <div class="bg-gray-900 rounded p-2 overflow-x-auto">
                             <pre class="text-green-400 text-xs"><code>% Polinomio: x² - 5x + 6 = 0
 coeficientes = [1, -5, 6];
@@ -1326,11 +1326,11 @@ disp(raices);</code></pre>
                     
                     <!-- Método 2: fzero() -->
                     <div class="bg-orange-50 border border-orange-200 rounded-lg p-4">
-                        <h4 class="font-semibold text-orange-800 mb-2 flex items-center">
+                        <h4 class="font-semibold text-orange-800 mb-2 flex items-center projector-optimized">
                             <i class="fas fa-search text-orange-600 mr-2"></i>
                             fzero() (Para cualquier función)
                         </h4>
-                        <p class="text-orange-700 text-sm mb-3">Método más flexible y preciso.</p>
+                        <p class="text-orange-700 text-sm mb-3 classroom-text">Método más flexible y preciso.</p>
                         <div class="bg-gray-900 rounded p-2 overflow-x-auto">
                             <pre class="text-green-400 text-xs"><code>% Función: f(x) = x² - 5x + 6
 f = @(x) x^2 - 5*x + 6;
@@ -1351,11 +1351,11 @@ disp(raiz);</code></pre>
 
             <!-- Consola MATLAB/Octave -->
             <div class="bg-white rounded-xl shadow-lg p-6">
-                <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center projector-optimized">
                     <i class="fas fa-terminal text-red-600 mr-3"></i>
                      Consola MATLAB/Octave
                 </h3>
-                <p class="text-gray-600 mb-4">
+                <p class="text-gray-600 mb-4 classroom-text">
                     Experimenta con código MATLAB/Octave para encontrar raíces. Ambos lenguajes usan la misma sintaxis.
                 </p>
                 
@@ -1737,13 +1737,13 @@ function loadExcelContent() {
 
             <!-- Caso para Función Cuadrática -->
             <div class="mb-6">
-                <h3 class="text-2xl font-bold text-gray-800 mb-2">Caso para Función Cuadrática</h3>
-                <p class="text-gray-600">Ejemplo práctico usando f(x) = x² - 5x + 6 = 0</p>
+                <h3 class="text-2xl font-bold text-gray-800 mb-2 projector-optimized">Caso para Función Cuadrática</h3>
+                <p class="text-gray-600 classroom-text">Ejemplo usando f(x) = x² - 5x + 6 = 0</p>
             </div>
 
             <!-- Paso 1: Preparar la función -->
             <div class="space-y-4">
-                <h4 class="text-lg font-semibold text-gray-800 flex items-center">
+                <h4 class="text-lg font-semibold text-gray-800 flex items-center projector-optimized">
                     <span class="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3">1</span>
                     Preparar la función
                 </h4>
@@ -1769,7 +1769,7 @@ function loadExcelContent() {
 
             <!-- Paso 2: Configurar Solver -->
             <div class="space-y-4">
-                <h4 class="text-lg font-semibold text-gray-800 flex items-center">
+                <h4 class="text-lg font-semibold text-gray-800 flex items-center projector-optimized">
                     <span class="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3">2</span>
                     Configurar Solver
                 </h4>
@@ -1787,7 +1787,7 @@ function loadExcelContent() {
 
             <!-- Paso 3: Ejecutar -->
             <div class="space-y-4">
-                <h4 class="text-lg font-semibold text-gray-800 flex items-center">
+                <h4 class="text-lg font-semibold text-gray-800 flex items-center projector-optimized">
                     <span class="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3">3</span>
                     Ejecutar
                 </h4>
