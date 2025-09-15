@@ -1062,12 +1062,9 @@ function loadPythonContent() {
             <div class="bg-white rounded-xl shadow-lg p-6">
                 <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center projector-optimized">
                     <i class="fas fa-info-circle text-blue-600 mr-3"></i>
-                    Python para Cálculo de Raíces
+                    Métodos comunes
                 </h3>
-                <p class="text-gray-700 leading-relaxed mb-4 classroom-text">
-                    Python es una excelente herramienta para encontrar raíces de funciones. Aquí tienes un resumen 
-                    de los métodos más básicos y útiles.
-                </p>
+                
                 
                 <div class="grid md:grid-cols-2 gap-6">
                     <!-- Método 1: NumPy -->
@@ -1301,12 +1298,9 @@ function loadMatlabContent() {
             <div class="bg-white rounded-xl shadow-lg p-6">
                 <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center projector-optimized">
                     <i class="fas fa-info-circle text-red-600 mr-3"></i>
-                    MATLAB/Octave para Cálculo de Raíces
+                    Métodos comunes
                 </h3>
-                <p class="text-gray-700 leading-relaxed mb-4 classroom-text">
-                    MATLAB y Octave son herramientas poderosas para encontrar raíces de funciones. 
-                    Aquí tienes un resumen de los métodos más útiles.
-                </p>
+                
                 
                 <div class="grid md:grid-cols-2 gap-6">
                     <!-- Método 1: roots() -->
@@ -1734,94 +1728,208 @@ function loadExcelContent() {
     excelContent.innerHTML = `
         <div class="space-y-8">
             
+            <!-- Header con gradiente -->
+            <div class="bg-gradient-to-r from-green-500 to-green-600 rounded-xl p-6 text-white">
+                <h3 class="text-2xl font-bold mb-2 projector-optimized flex items-center">
 
-            <!-- Caso para Función Cuadrática -->
-            <div class="mb-6">
-                <h3 class="text-2xl font-bold text-gray-800 mb-2 projector-optimized">Caso para Función Cuadrática</h3>
-                <p class="text-gray-600 classroom-text">Ejemplo usando f(x) = x² - 5x + 6 = 0</p>
+                    Ejemplo con f(x) = x² - 5x + 6 = 0
+                </h3>
             </div>
 
             <!-- Paso 1: Preparar la función -->
-            <div class="space-y-4">
-                <h4 class="text-lg font-semibold text-gray-800 flex items-center projector-optimized">
-                    <span class="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3">1</span>
+            <div class="bg-blue-50 border border-blue-200 rounded-xl p-6">
+                <h4 class="text-lg font-semibold text-blue-800 flex items-center projector-optimized mb-4">
+                    <span class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">1</span>
                     Preparar la función
                 </h4>
                 
-                <div class="pl-9 space-y-3">
-                    <p class="text-gray-700">En Excel, crea celdas para los coeficientes de f(x) = ax² + bx + c:</p>
-                    <ul class="text-gray-600 space-y-1 ml-4">
-                        <li>• <strong>a = 1</strong> en B3</li>
-                        <li>• <strong>b = -5</strong> en B4</li>
-                        <li>• <strong>c = 6</strong> en B5</li>
-                    </ul>
+                <div class="space-y-4">
+                    <div class="bg-white rounded-lg p-4 border border-blue-100">
+                        <h5 class="font-semibold text-gray-800 mb-2 flex items-center">
+                            <i class="fas fa-calculator text-blue-600 mr-2"></i>
+                            Configurar coeficientes
+                        </h5>
+                        <p class="text-gray-700 mb-3">En Excel, crea celdas para los coeficientes de f(x) = ax² + bx + c:</p>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            <div class="bg-green-100 border border-green-300 rounded p-3 text-center">
+                                <p class="text-sm text-green-800 font-semibold">a = 1</p>
+                                <p class="text-xs text-green-600">Celda B3</p>
+                            </div>
+                            <div class="bg-orange-100 border border-orange-300 rounded p-3 text-center">
+                                <p class="text-sm text-orange-800 font-semibold">b = -5</p>
+                                <p class="text-xs text-orange-600">Celda B4</p>
+                            </div>
+                            <div class="bg-purple-100 border border-purple-300 rounded p-3 text-center">
+                                <p class="text-sm text-purple-800 font-semibold">c = 6</p>
+                                <p class="text-xs text-purple-600">Celda B5</p>
+                            </div>
+                        </div>
+                    </div>
                     
-                    <p class="text-gray-700">Configura las celdas principales:</p>
-                    <ul class="text-gray-600 space-y-1 ml-4">
-                        <li>• <strong>En B7:</strong> valor inicial para x (ejemplo: 0)</li>
-                        <li>• <strong>En B9:</strong> fórmula:</li>
-                    </ul>
-                    <div class="bg-gray-100 rounded p-3 ml-4">
-                        <code class="text-gray-800 text-sm">=B3*B7^2 + B4*B7 + B5</code>
+                    <div class="bg-white rounded-lg p-4 border border-blue-100">
+                        <h5 class="font-semibold text-gray-800 mb-2 flex items-center">
+                            <i class="fas fa-edit text-blue-600 mr-2"></i>
+                            Configurar celdas principales
+                        </h5>
+                        <div class="space-y-3">
+                            <div class="flex items-center space-x-3">
+                                <span class="bg-blue-600 text-white px-2 py-1 rounded text-sm font-mono">B7</span>
+                                <span class="text-gray-700">Valor inicial para x (ejemplo: 0)</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="bg-blue-600 text-white px-2 py-1 rounded text-sm font-mono">B9</span>
+                                <span class="text-gray-700">Fórmula:</span>
+                            </div>
+                            <div class="bg-gray-900 rounded p-3 ml-8">
+                                <code class="text-green-400 text-sm">=B3*B7^2 + B4*B7 + B5</code>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Paso 2: Configurar Solver -->
-            <div class="space-y-4">
-                <h4 class="text-lg font-semibold text-gray-800 flex items-center projector-optimized">
-                    <span class="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3">2</span>
+            <div class="bg-orange-50 border border-orange-200 rounded-xl p-6">
+                <h4 class="text-lg font-semibold text-orange-800 flex items-center projector-optimized mb-4">
+                    <span class="bg-orange-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">2</span>
                     Configurar Solver
                 </h4>
                 
-                <div class="pl-9 space-y-3">
-                    <p class="text-gray-700">Solver es una herramienta de Excel que encuentra automáticamente el valor de una variable para que una función sea igual a un objetivo específico.</p>
-                    <p class="text-gray-700">Ve a <strong>Datos → Solver</strong> y configura:</p>
-                    <ul class="text-gray-600 space-y-1 ml-4">
-                        <li>• <strong>Definir objetivo:</strong> B9 (f(x))</li>
-                        <li>• <strong>A valor de:</strong> 0</li>
-                        <li>• <strong>Cambiando celda:</strong> B7 (valor de x)</li>
-                    </ul>
+                <div class="space-y-4">
+                    <div class="bg-white rounded-lg p-4 border border-orange-100">
+                        <h5 class="font-semibold text-gray-800 mb-2 flex items-center">
+                            <i class="fas fa-cogs text-orange-600 mr-2"></i>
+                            ¿Qué es Solver?
+                        </h5>
+                        <p class="text-gray-700">Solver es una herramienta de Excel que encuentra automáticamente el valor de una variable para que una función sea igual a un objetivo específico.</p>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg p-4 border border-orange-100">
+                        <h5 class="font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fas fa-route text-orange-600 mr-2"></i>
+                            Configuración paso a paso
+                        </h5>
+                        <p class="text-gray-700 mb-3">Ve a <strong>Complementos → Solver</strong> y configura:</p>
+                        <div class="space-y-3">
+                            <div class="flex items-center space-x-3 p-3 bg-green-50 rounded-lg border border-green-200">
+                                <i class="fas fa-bullseye text-green-600"></i>
+                                <div>
+                                    <span class="font-semibold text-green-800">Definir objetivo:</span>
+                                    <span class="text-green-700 ml-2">B9 (f(x))</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                <i class="fas fa-equals text-blue-600"></i>
+                                <div>
+                                    <span class="font-semibold text-blue-800">A valor de:</span>
+                                    <span class="text-blue-700 ml-2">0</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3 p-3 bg-purple-50 rounded-lg border border-purple-200">
+                                <i class="fas fa-edit text-purple-600"></i>
+                                <div>
+                                    <span class="font-semibold text-purple-800">Cambiando celda:</span>
+                                    <span class="text-purple-700 ml-2">B7 (valor de x)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Paso 3: Ejecutar -->
-            <div class="space-y-4">
-                <h4 class="text-lg font-semibold text-gray-800 flex items-center projector-optimized">
-                    <span class="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3">3</span>
+            <div class="bg-green-50 border border-green-200 rounded-xl p-6">
+                <h4 class="text-lg font-semibold text-green-800 flex items-center projector-optimized mb-4">
+                    <span class="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">3</span>
                     Ejecutar
                 </h4>
                 
-                <div class="pl-9 space-y-3">
-                    <p class="text-gray-700">Haz clic en <strong>Resolver</strong>.</p>
-                    <p class="text-gray-600">Excel ajustará el valor de B7 para que f(x) sea cero. El valor final será una raíz de la función.</p>
+                <div class="space-y-4">
+                    <div class="bg-white rounded-lg p-4 border border-green-100">
+                        <h5 class="font-semibold text-gray-800 mb-2 flex items-center">
+                            <i class="fas fa-play text-green-600 mr-2"></i>
+                            Ejecutar Solver
+                        </h5>
+                        <p class="text-gray-700 mb-3">Haz clic en <strong>Resolver</strong>.</p>
+                        <div class="bg-green-100 border border-green-300 rounded-lg p-4">
+                            <p class="text-green-800 text-sm">
+                                <i class="fas fa-info-circle mr-2"></i>
+                                Excel ajustará el valor de B7 para que f(x) sea cero. El valor final será una raíz de la función.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg p-4 border border-green-100">
+                        <h5 class="font-semibold text-gray-800 mb-2 flex items-center">
+                            <i class="fas fa-chart-line text-green-600 mr-2"></i>
+                            Resultado esperado
+                        </h5>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-blue-50 border border-blue-200 rounded p-3 text-center">
+                                <p class="text-sm text-blue-800 font-semibold">Primera raíz</p>
+                                <p class="text-lg text-blue-600 font-bold">x = 2.0</p>
+                            </div>
+                            <div class="bg-purple-50 border border-purple-200 rounded p-3 text-center">
+                                <p class="text-sm text-purple-800 font-semibold">Segunda raíz</p>
+                                <p class="text-lg text-purple-600 font-bold">x = 3.0</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Nota importante -->
-            <div class="border-l-4 border-orange-400 pl-4">
-                <h4 class="text-lg font-semibold text-gray-800 mb-2">Nota importante</h4>
-                <p class="text-gray-700 mb-2">Solver no puede encontrar ambas raíces al mismo tiempo. Si tu ecuación tiene dos raíces, tienes dos opciones:</p>
-                <div class="text-gray-600 space-y-2">
-                    <p><strong>Opción 1:</strong> Cambia el valor inicial de B7 y ejecuta Solver otra vez.</p>
-                    <p><strong>Opción 2:</strong> Crea una segunda columna (por ejemplo, C7 y C9) con la misma fórmula y ejecuta Solver por separado para cada columna.</p>
+            <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-6">
+                <h4 class="text-lg font-semibold text-yellow-800 mb-4 flex items-center">
+                    <i class="fas fa-exclamation-triangle text-yellow-600 mr-2"></i>
+                    Nota importante
+                </h4>
+                <div class="space-y-4">
+                    <div class="bg-white rounded-lg p-4 border border-yellow-100">
+                        <p class="text-gray-700 mb-3">Solver no puede encontrar ambas raíces al mismo tiempo. Si tu ecuación tiene dos raíces, tienes dos opciones:</p>
+                        <div class="space-y-3">
+                            <div class="flex items-start space-x-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                <span class="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mt-0.5">1</span>
+                                <div>
+                                    <p class="font-semibold text-blue-800">Cambiar el valor inicial</p>
+                                    <p class="text-blue-700 text-sm">Cambia el valor inicial de B7 y ejecuta Solver otra vez</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3 p-3 bg-green-50 rounded-lg border border-green-200">
+                                <span class="bg-green-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mt-0.5">2</span>
+                                <div>
+                                    <p class="font-semibold text-green-800">Segunda columna</p>
+                                    <p class="text-green-700 text-sm">Crea una segunda columna (C7 y C9) con la misma fórmula y ejecuta Solver por separado</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Imágenes de Solver -->
-            <div class="mt-6">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 max-w-3xl mx-auto">
-                    <div class="relative">
-                        <div class="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl blur opacity-25"></div>
-                        <div class="relative bg-white rounded-xl p-0.5">
-                            <img src="images/solverExcel2.png" alt="Configuración de Solver" class="w-full h-auto rounded-lg">
+            <div class="bg-gray-50 border border-gray-200 rounded-xl p-6">
+                <h4 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-images text-gray-600 mr-2"></i>
+                    Como nos debe quedar
+                </h4>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-lg p-4 border border-gray-200">
+                        <h5 class="font-semibold text-gray-800 mb-2 text-center">Configuración de Solver</h5>
+                        <div class="relative">
+                            <div class="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl blur opacity-25"></div>
+                            <div class="relative bg-white rounded-xl p-0.5">
+                                <img src="images/solverExcel2.png" alt="Configuración de Solver" class="w-full h-auto rounded-lg">
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="relative">
-                        <div class="absolute -inset-0.5 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-xl blur opacity-25"></div>
-                        <div class="relative bg-white rounded-xl p-0.5">
-                            <img src="images/solverExcel1.png" alt="Resultado de Solver" class="w-full h-auto rounded-lg">
+                    <div class="bg-white rounded-lg p-4 border border-gray-200">
+                        <h5 class="font-semibold text-gray-800 mb-2 text-center">Resultado de Solver</h5>
+                        <div class="relative">
+                            <div class="absolute -inset-0.5 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-xl blur opacity-25"></div>
+                            <div class="relative bg-white rounded-xl p-0.5">
+                                <img src="images/solverExcel1.png" alt="Resultado de Solver" class="w-full h-auto rounded-lg">
+                            </div>
                         </div>
                     </div>
                 </div>
