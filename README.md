@@ -37,10 +37,8 @@ Esta aplicación web proporciona una guía para entender y calcular raíces de f
 
 ## Uso
 
-1. Abrir `index.html` en un navegador web
-2. Navegar por las diferentes secciones usando el menú superior
-3. Explorar los ejemplos interactivos y modales
-4. Probar los enlaces a software externo (WolframAlpha, etc.)
+1. Abre el archivo index.html con Live Server
+2. La aplicación se ejecutará automáticamente en tu navegador
 
 
 ## Grupo 9 - Análisis Numérico S33 2025
